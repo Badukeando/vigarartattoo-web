@@ -1,0 +1,392 @@
+---
+import "../styles/global.css";
+const { title = "Vigarartattoo" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+
+  <body class="min-h-screen bg-zinc-950 text-zinc-100">
+    <slot />
+
+    <!-- Enable JS-only CSS rules -->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+
+    <!-- Reveal sections -->
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        if (document.documentElement.dataset.vigarRevealInit === "true") return;
+        document.documentElement.dataset.vigarRevealInit = "true";
+
+        const elements = document.querySelectorAll(".reveal");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const el = entry.target;
+              if (!(el instanceof HTMLElement)) return;
+
+              requestAnimationFrame(() => {
+                el.classList.toggle("reveal-visible", entry.isIntersecting);
+              });
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+        );
+
+        elements.forEach((el) => observer.observe(el));
+      });
+    </script>
+
+    <!-- Stagger items -->
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        if (document.documentElement.dataset.vigarStaggerInit === "true") return;
+        document.documentElement.dataset.vigarStaggerInit = "true";
+
+        const items = Array.from(document.querySelectorAll(".reveal-item"));
+
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const el = entry.target;
+              if (!(el instanceof HTMLElement)) return;
+
+              if (entry.isIntersecting) {
+                const siblings = Array.from(
+                  el.parentElement?.querySelectorAll(".reveal-item") ?? []
+                );
+                const index = siblings.indexOf(el);
+                el.style.transitionDelay = `${Math.min(index * 70, 500)}ms`;
+                requestAnimationFrame(() => el.classList.add("is-in"));
+              } else {
+                el.style.transitionDelay = "0ms";
+                requestAnimationFrame(() => el.classList.remove("is-in"));
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+        );
+
+        items.forEach((el) => obs.observe(el));
+      });
+    </script>
+
+    <!-- Hero parallax -->
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const hero = document.querySelector("[data-parallax-hero]");
+        if (!(hero instanceof HTMLElement)) return;
+
+        if (hero.dataset.vigarParallaxInit === "true") return;
+        hero.dataset.vigarParallaxInit = "true";
+
+        const items = hero.querySelectorAll("[data-parallax]");
+        let ticking = false;
+
+        const update = () => {
+          ticking = false;
+          const rect = hero.getBoundingClientRect();
+          const heroH = rect.height;
+          const scrolledInHero = Math.min(Math.max(-rect.top, 0), heroH);
+
+          items.forEach((el) => {
+            if (!(el instanceof HTMLElement)) return;
+            const speed = Number(el.dataset.speed ?? "0.2");
+            const y = scrolledInHero * speed * 0.6;
+            el.style.transform = `translate3d(0, ${y}px, 0)`;
+          });
+        };
+
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(update);
+        };
+
+        update();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+      });
+    </script>
+
+    <!-- Mobile menu -->
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const openBtn = document.querySelector("[data-menu-open]");
+        const overlay = document.querySelector("[data-menu-overlay]");
+        const closeBtns = document.querySelectorAll("[data-menu-close]");
+        const links = document.querySelectorAll("[data-menu-link]");
+
+        if (!(overlay instanceof HTMLElement) || !(openBtn instanceof HTMLElement)) return;
+        if (overlay.dataset.vigarMenuInit === "true") return;
+        overlay.dataset.vigarMenuInit = "true";
+
+        const open = () => {
+          overlay.classList.remove("hidden");
+          overlay.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+          requestAnimationFrame(() => overlay.classList.add("is-open"));
+        };
+
+        const close = () => {
+          overlay.classList.remove("is-open");
+          overlay.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          setTimeout(() => overlay.classList.add("hidden"), 220);
+        };
+
+        openBtn.addEventListener("click", open);
+        closeBtns.forEach((b) => b.addEventListener("click", close));
+        links.forEach((a) => a.addEventListener("click", close));
+
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") close();
+        });
+      });
+    </script>
+
+    <!-- Sticky header -->
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const sticky = document.querySelector("[data-sticky-header]");
+        if (!(sticky instanceof HTMLElement)) return;
+        if (sticky.dataset.vigarStickyInit === "true") return;
+        sticky.dataset.vigarStickyInit = "true";
+
+        const showAfter = 260;
+        let hideTimer = 0;
+
+        const isLightboxOpen = () =>
+          document.documentElement.dataset.lightboxOpen === "true";
+
+        const show = () => {
+          if (isLightboxOpen()) return;
+          if (hideTimer) clearTimeout(hideTimer);
+          sticky.classList.remove("hidden");
+          requestAnimationFrame(() => sticky.classList.add("is-visible"));
+        };
+
+        const hide = () => {
+          sticky.classList.remove("is-visible");
+          hideTimer = setTimeout(() => sticky.classList.add("hidden"), 200);
+        };
+
+        const update = () => {
+          const y = window.scrollY || document.documentElement.scrollTop;
+          if (isLightboxOpen() || y <= showAfter) hide();
+          else show();
+        };
+
+        update();
+        window.addEventListener("scroll", update, { passive: true });
+
+        new MutationObserver(update).observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["data-lightbox-open"],
+        });
+      });
+    </script>
+
+    <!-- Hide any UI marked with data-hide-on-lightbox -->
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        if (document.documentElement.dataset.vigarHideOnLightboxInit === "true") return;
+        document.documentElement.dataset.vigarHideOnLightboxInit = "true";
+
+        const update = () => {
+          const open = document.documentElement.dataset.lightboxOpen === "true";
+          document.querySelectorAll("[data-hide-on-lightbox]").forEach((el) => {
+            if (!(el instanceof HTMLElement)) return;
+            el.style.pointerEvents = open ? "none" : "";
+            el.style.opacity = open ? "0" : "";
+            el.style.transition = "opacity 160ms ease";
+          });
+        };
+
+        update();
+
+        new MutationObserver(update).observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["data-lightbox-open"],
+        });
+      });
+    </script>
+
+    <!-- Scroll to top floating button -->
+    <button
+      type="button"
+      class="fixed bottom-5 right-5 z-[70] hidden h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-zinc-950/70 text-white shadow-lg shadow-black/30 backdrop-blur transition hover:bg-zinc-900/70 focus:outline-none focus:ring-2 focus:ring-white/30"
+      data-scrolltop
+      aria-label="Subir arriba"
+      title="Subir arriba"
+    >
+      ↑
+    </button>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const btn = document.querySelector("[data-scrolltop]");
+        if (!(btn instanceof HTMLButtonElement)) return;
+
+        if (btn.dataset.vigarInit === "true") return;
+        btn.dataset.vigarInit = "true";
+
+        const showAfter = 420;
+        let ticking = false;
+
+        const update = () => {
+          ticking = false;
+
+          const lightboxOpen = document.documentElement.dataset.lightboxOpen === "true";
+          if (lightboxOpen) {
+            btn.classList.add("hidden");
+            return;
+          }
+
+          const y = window.scrollY || document.documentElement.scrollTop;
+          btn.classList.toggle("hidden", y < showAfter);
+        };
+
+        const onScroll = () => {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(update);
+        };
+
+        btn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        update();
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        new MutationObserver(update).observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["data-lightbox-open"],
+        });
+      });
+    </script>
+    
+    <!-- Active section highlight -->
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    if (document.documentElement.dataset.vigarSectionHighlightInit === "true") return;
+    document.documentElement.dataset.vigarSectionHighlightInit = "true";
+
+    const navs = Array.from(document.querySelectorAll("[data-section-nav]"));
+
+    // If no scoped navs exist, fall back to the whole document
+    const scopeRoots: Array<ParentNode> = navs.length ? navs : [document];
+
+    const links = scopeRoots
+      .flatMap((root) => Array.from(root.querySelectorAll("[data-section-link]")))
+      .filter((a): a is HTMLAnchorElement => a instanceof HTMLAnchorElement);
+
+    if (!links.length) return;
+
+    const normalizeId = (v: string | null) => (v || "").replace(/^#/, "").trim();
+
+    // ✅ Keep strong typing (avoid filter(Boolean) / weak inference)
+    const ids: string[] = Array.from(
+      new Set(
+        links
+          .map((a) => normalizeId(a.getAttribute("data-section-link")))
+          .filter((v): v is string => v.length > 0)
+      )
+    );
+
+    const sections = ids
+      .map((id: string) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el instanceof HTMLElement);
+
+    if (!sections.length) return;
+
+    const setActive = (id: string) => {
+      links.forEach((a) => {
+        const match = normalizeId(a.getAttribute("data-section-link")) === id;
+
+        a.classList.toggle("text-white", match);
+        a.classList.toggle("font-semibold", match);
+        a.classList.toggle("border-white/30", match);
+        a.classList.toggle("is-active", match);
+
+        if (match) a.setAttribute("aria-current", "true");
+        else a.removeAttribute("aria-current");
+      });
+    };
+
+    const clearActive = () => {
+      links.forEach((a) => {
+        a.classList.remove("text-white", "font-semibold", "border-white/30", "is-active");
+        a.removeAttribute("aria-current");
+      });
+    };
+
+    const getTopOffset = () => {
+      const sticky = document.querySelector("[data-sticky-header]");
+      if (sticky instanceof HTMLElement && sticky.classList.contains("is-visible")) {
+        return sticky.getBoundingClientRect().height + 16;
+      }
+      return 24;
+    };
+
+    // ✅ Start with no active item
+    let activeId: string = "";
+    clearActive();
+
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+
+      // ✅ Do not highlight anything until the user actually scrolls a bit
+      const y = window.scrollY || document.documentElement.scrollTop;
+      if (y < 8) {
+        if (activeId !== "") {
+          activeId = "";
+          clearActive();
+        }
+        return;
+      }
+
+      const offset = getTopOffset();
+      let current = sections[0];
+
+      for (const s of sections) {
+        const top = s.getBoundingClientRect().top;
+        if (top - offset <= 0) current = s;
+        else break;
+      }
+
+      const nearBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (nearBottom) current = sections[sections.length - 1];
+
+      if (current.id !== activeId) {
+        activeId = current.id;
+        setActive(activeId);
+      }
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    // No initial update(); only after first scroll/resize
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+  });
+</script>
+
+  </body>
+</html>

@@ -1,16 +1,463 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GalleryLightbox from "../components/GalleryLightbox.astro";
+import { featuredItems } from "../data/portfolio";
+import { reviews, googleMapsReviewsUrl } from "../data/reviews";
 
+const whatsappLink = "https://wa.me/34600254338";
+const instagramLink = "https://www.instagram.com/vigarartattoo/";
+const mapsLink = "https://maps.app.goo.gl/aDDJfWMDJhcXpEHE7";
+
+// Put your chosen hero photo in /public/images/hero/ and set the path here:
+const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Vigarartattoo | Tatuajes en Málaga">
+  <main class="mx-auto max-w-6xl px-4">
+    <!-- Sticky header (appears on scroll) -->
+    <div
+      class="sticky-header pointer-events-none fixed left-0 right-0 top-0 z-[60] hidden"
+      data-sticky-header
+      data-hide-on-lightbox
+    >
+      <div class="mx-auto max-w-3xl px-4 pt-3">
+        <div
+          class="pointer-events-auto relative flex items-center justify-between gap-4 rounded-full glass-strong px-4 py-2"
+        >
+          <a href="#" class="text-sm font-semibold tracking-wide text-glass">
+            Vigarartattoo
+          </a>
+
+          <!-- ✅ Scoped nav for section highlight -->
+          <nav
+            class="hidden items-center gap-3 text-sm text-zinc-200 lg:flex text-glass"
+            data-section-nav
+          >
+            <a
+              class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+              href="#portfolio"
+              data-section-link="portfolio"
+            >
+              Portfolio
+            </a>
+
+            <a
+              class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+              href="#estilos"
+              data-section-link="estilos"
+            >
+              Estilos
+            </a>
+
+            <a
+              class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+              href="#sobre"
+              data-section-link="sobre"
+            >
+              Sobre Mí
+            </a>
+
+            <a
+              class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+              href="#contacto"
+              data-section-link="contacto"
+            >
+              Contacto
+            </a>
+
+            <!-- ✅ "Trabajos" no es sección: NO debe tener data-section-link -->
+            <a
+              class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+              href="/works"
+            >
+              Trabajos
+            </a>
+          </nav>
+
+          <a
+            class="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-zinc-200"
+            href={whatsappLink}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Reservar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <header class="flex items-center justify-between py-6">
+      <a href="#" class="text-lg font-semibold tracking-wide">
+        Vigarartattoo
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
+        <a class="hover:text-white" href="#portfolio">Portfolio</a>
+        <a class="hover:text-white" href="#estilos">Estilos</a>
+        <a class="hover:text-white" href="#sobre">Sobre Mí</a>
+        <a class="hover:text-white" href="#contacto">Contacto</a>
+        <a class="hover:text-white" href="/works">Trabajos</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <!-- Mobile menu button -->
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 md:hidden"
+          aria-label="Abrir menú"
+          data-menu-open
+        >
+          Menú
+        </button>
+      </div>
+
+      <!-- Mobile overlay -->
+      <div class="menu-overlay fixed inset-0 z-50 hidden" data-menu-overlay aria-hidden="true">
+        <!-- Backdrop -->
+        <button
+          class="menu-backdrop absolute inset-0 bg-black/70"
+          aria-label="Cerrar menú"
+          data-menu-close
+          type="button"
+        ></button>
+
+        <!-- Panel -->
+        <div class="menu-panel absolute right-0 top-0 h-full w-[85%] max-w-sm border-l border-white/10 bg-zinc-950 p-6">
+          <div class="flex items-center justify-between">
+            <div class="text-lg font-semibold">Vigarartattoo</div>
+            <button
+              type="button"
+              class="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+              aria-label="Cerrar menú"
+              data-menu-close
+            >
+              Cerrar
+            </button>
+          </div>
+
+          <nav class="mt-8 grid gap-4 text-base">
+            <a
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
+              href="#portfolio"
+              data-menu-link
+            >
+              Portfolio
+            </a>
+
+            <a
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
+              href="#estilos"
+              data-menu-link
+            >
+              Estilos
+            </a>
+
+            <a
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
+              href="#contacto"
+              data-menu-link
+            >
+              Contacto
+            </a>
+
+            <a
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
+              href="/works"
+              data-menu-link
+            >
+              Trabajos
+            </a>
+
+            <a
+              class="mt-2 rounded-2xl bg-white px-4 py-3 text-center font-semibold text-zinc-950 hover:bg-zinc-200"
+              href={whatsappLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Reservar por WhatsApp
+            </a>
+
+            <a
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-center hover:bg-white/10"
+              href={instagramLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Instagram
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO (photo + overlay) -->
+    <section class="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950">
+      <img
+        src={heroImageSrc}
+        alt="Rocío tatuando en el estudio"
+        class="absolute inset-0 h-full w-full object-cover"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20"></div>
+      <div class="absolute inset-0 backdrop-blur-[1px]"></div>
+
+      <div class="relative grid gap-10 px-6 py-14 md:grid-cols-2 md:px-12 md:py-20">
+        <div>
+          <p class="text-xs uppercase tracking-[0.35em] text-zinc-200/80">Tatuajes en Málaga</p>
+
+          <h1 class="mt-4 text-4xl font-semibold leading-tight text-white md:text-6xl">
+            Arte en la piel con detalle, precisión y estilo.
+          </h1>
+
+          <p class="mt-6 text-base text-zinc-200 md:text-lg">
+            Línea fina y tatuajes a color. Diseño cuidado, trato cercano y resultado impecable.
+          </p>
+
+          <div class="mt-8 flex items-center gap-4">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Reservar por WhatsApp"
+              title="WhatsApp"
+              class="group flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 transition hover:scale-110 hover:bg-white/20"
+            >
+              <svg class="h-7 w-7 text-green-400 transition group-hover:scale-110" viewBox="0 0 32 32" fill="currentColor">
+                <path d="M16 2.7c-7.4 0-13.3 5.7-13.3 12.8 0 2.3.6 4.6 1.9 6.6L2 29.3l7.5-2.4c1.9 1 4.2 1.6 6.5 1.6 7.4 0 13.3-5.7 13.3-12.8S23.4 2.7 16 2.7zm0 23.3c-2.1 0-4.1-.6-5.9-1.6l-.4-.2-4.4 1.4 1.4-4.2-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9 0-6.1 5.2-11.1 11.4-11.1s11.4 5 11.4 11.1-5.2 11.1-11.4 11.1zm6.4-8.4c-.4-.2-2.2-1-2.6-1.1-.4-.1-.7-.2-1 .2-.3.4-1.1 1.1-1.4 1.4-.3.3-.5.3-.9.1-.4-.2-1.7-.6-3.2-2-.6-.5-1-1.1-1.3-1.5-.3-.4 0-.6.2-.8.2-.2.4-.4.6-.6.2-.2.3-.4.4-.6.1-.2.1-.4 0-.6-.1-.2-1-2.4-1.4-3.3-.4-.9-.7-.7-1-.7h-.9c-.3 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3 0 1.8 1.2 3.5 1.4 3.7.2.2 2.4 3.6 5.9 5 3.5 1.4 3.5.9 4.2.9.7 0 2.2-.9 2.5-1.7.3-.8.3-1.5.2-1.7-.1-.2-.4-.3-.8-.5z"/>
+              </svg>
+            </a>
+
+            <a
+              href={instagramLink}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              title="Instagram"
+              class="group flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 transition hover:scale-110 hover:bg-white/20"
+            >
+              <svg class="h-6 w-6 text-pink-400 transition group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9z"/>
+                <path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.1A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"/>
+                <path d="M17.6 6.4a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
+            </a>
+
+            <a
+              href={mapsLink}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Abrir en Google Maps"
+              title="Google Maps"
+              class="group flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 transition hover:scale-110 hover:bg-white/20"
+            >
+              <svg class="h-6 w-6 text-blue-400 transition group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2c-3.866 0-7 3.134-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="reveal pb-16 pt-10">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-semibold md:text-3xl">Portfolio</h2>
+          <p class="mt-2 text-sm text-zinc-400">Una selección de trabajos destacados.</p>
+        </div>
+
+        <a class="text-sm text-zinc-300 hover:text-white" href="/works">
+          Ver portfolio completo →
+        </a>
+      </div>
+
+      <div class="mt-8">
+        <GalleryLightbox items={featuredItems} galleryId="home-featured" />
+      </div>
+
+      <div class="mt-6">
+        <a
+          href="/works"
+          class="inline-flex rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5"
+        >
+          Ver todos los trabajos
+        </a>
+      </div>
+    </section>
+
+    <!-- ESTILOS -->
+    <section id="estilos" class="reveal pb-16 pt-10">
+      <h2 class="text-2xl font-semibold md:text-3xl">Estilos</h2>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        {[
+          { t: "Fine line", d: "Trazos finos, delicados y elegantes.", href: "/works#fine-line" },
+          { t: "Blackwork", d: "Negro sólido, contraste y piezas potentes.", href: "/works#blackwork" },
+          { t: "Color", d: "Piezas vibrantes con contraste y detalle.", href: "/works#color" },
+        ].map((s) => (
+          <a
+            href={s.href}
+            class="block rounded-3xl border border-white/10 bg-white/5 p-6 transition hover:bg-white/10"
+          >
+            <h3 class="text-lg font-semibold">{s.t}</h3>
+            <p class="mt-2 text-sm text-zinc-300">{s.d}</p>
+            <p class="mt-4 text-xs text-zinc-400">Ver trabajos →</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-4">
+        <a class="text-sm text-zinc-300 hover:text-white" href="/works">
+          Ver todos los estilos →
+        </a>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="sobre" class="reveal pb-16 pt-10">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+        <p class="text-xs uppercase tracking-[0.35em] text-zinc-400">
+          Sobre Rocío
+        </p>
+
+        <h2 class="mt-4 max-w-3xl text-2xl font-semibold md:text-4xl">
+          Tatuajes con detalle, cuidado y un trato cercano.
+        </h2>
+
+        <p class="mt-5 max-w-3xl text-sm leading-relaxed text-zinc-300 md:text-base">
+          Nací con un lápiz en la mano y dibujar siempre ha sido mi hobby favorito. Mi enamoramiento
+          con el mundo del tatuaje fue a primera vista: de pequeña siempre llevaba calcomanías y
+          tatuajes temporales por el cuerpo. Estudié en la Escuela de Artes, aunque también he
+          tenido pasión por el deporte y cuento con dos titulaciones de monitora deportiva y
+          nutricionista. Pero el arte siempre ha sido mi motor, y al final me lo jugué todo a una.
+          Tomé la decisión justo después del confinamiento: ¿por qué no dedicarme a lo que me
+          apasiona? Sin duda, es lo mejor que pude hacer. Ahora tengo mi propio estudio en Málaga,
+          aunque me muevo por diferentes ciudades dejando mi huellita de tinta por donde voy.
+        </p>
+
+        <h3 class="mt-10 text-lg font-semibold text-white md:text-xl">
+          Qué puedes esperar de mí
+        </h3>
+
+        <ul class="mt-4 grid gap-3 text-sm text-zinc-300 md:grid-cols-2">
+          <li>• Diseños personalizados y asesoramiento previo</li>
+          <li>• Especialidad en fine line y color</li>
+          <li>• Trato cercano y ambiente cómodo</li>
+          <li>• Atención antes y después de la sesión</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reveal pb-20">
+      <header class="mb-6">
+        <h3 class="text-xl font-semibold md:text-2xl">
+          Opiniones de clientes
+        </h3>
+        <p class="mt-1 text-sm text-zinc-400">
+          Reseñas reales en Google Maps
+        </p>
+      </header>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {reviews.slice(0, 6).map((r) => (
+          <article class="rounded-2xl border border-white/10 bg-white/5 p-5">
+            <header class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="truncate text-sm font-semibold text-white">
+                  {r.author}
+                </p>
+                <p class="mt-0.5 text-xs text-zinc-500">
+                  {r.date}{r.service ? ` · ${r.service}` : ""}
+                </p>
+              </div>
+
+              <div class="flex shrink-0 gap-0.5 text-yellow-300">
+                {Array.from({ length: r.rating }).map(() => "★")}
+              </div>
+            </header>
+
+            <p class="mt-3 text-sm leading-relaxed text-zinc-200">
+              {r.text}
+            </p>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-8 text-center">
+        <a
+          href={googleMapsReviewsUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10"
+        >
+          Ver todas las reseñas en Google →
+        </a>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="reveal pb-20 pt-10">
+      <h2 class="text-2xl font-semibold md:text-3xl">Contacto</h2>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+          <p class="text-sm text-zinc-300">Reserva directa:</p>
+
+          <div class="mt-8 grid grid-cols-3 gap-4 text-center">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noreferrer"
+              class="group flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"
+              aria-label="Abrir WhatsApp"
+            >
+              <svg class="h-7 w-7 text-green-400 transition group-hover:scale-110" viewBox="0 0 32 32" fill="currentColor">
+                <path d="M16 2.7c-7.4 0-13.3 5.7-13.3 12.8 0 2.3.6 4.6 1.9 6.6L2 29.3l7.5-2.4c1.9 1 4.2 1.6 6.5 1.6 7.4 0 13.3-5.7 13.3-12.8S23.4 2.7 16 2.7zm0 23.3c-2.1 0-4.1-.6-5.9-1.6l-.4-.2-4.4 1.4 1.4-4.2-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9 0-6.1 5.2-11.1 11.4-11.1s11.4 5 11.4 11.1-5.2 11.1-11.4 11.1zm6.4-8.4c-.4-.2-2.2-1-2.6-1.1-.4-.1-.7-.2-1 .2-.3.4-1.1 1.1-1.4 1.4-.3.3-.5.3-.9.1-.4-.2-1.7-.6-3.2-2-.6-.5-1-1.1-1.3-1.5-.3-.4 0-.6.2-.8.2-.2.4-.4.6-.6.2-.2.3-.4.4-.6.1-.2.1-.4 0-.6-.1-.2-1-2.4-1.4-3.3-.4-.9-.7-.7-1-.7h-.9c-.3 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3 0 1.8 1.2 3.5 1.4 3.7.2.2 2.4 3.6 5.9 5 3.5 1.4 3.5.9 4.2.9.7 0 2.2-.9 2.5-1.7.3-.8.3-1.5.2-1.7-.1-.2-.4-.3-.8-.5z"/>
+              </svg>
+              <span class="text-xs text-zinc-200">WhatsApp</span>
+            </a>
+
+            <a
+              href={instagramLink}
+              target="_blank"
+              rel="noreferrer"
+              class="group flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"
+              aria-label="Abrir Instagram"
+            >
+              <svg class="h-7 w-7 text-pink-400 transition group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A4.5 4.5 0 1 0 16.5 12 4.5 4.5 0 0 0 12 7.5zm0 7.3A2.8 2.8 0 1 1 14.8 12 2.8 2.8 0 0 1 12 14.8zM17.2 6.3a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1z"/>
+              </svg>
+              <span class="text-xs text-zinc-200">Instagram</span>
+            </a>
+          </div>
+
+          <p class="mt-6 text-sm text-zinc-300">Dirección:</p>
+          <p class="mt-2 text-sm text-zinc-200">
+            Calle Miguel Moreno Masson, 11<br />
+            29007 Málaga, España
+          </p>
+        </div>
+
+        <div class="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+          <iframe
+            title="Mapa del estudio Vigarartattoo"
+            src="https://www.google.com/maps?q=Calle%20Miguel%20Moreno%20Masson%2011%20Malaga&output=embed"
+            class="h-full w-full min-h-[260px] grayscale-[30%] contrast-[1.05]"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-white/10 py-8 text-sm text-zinc-500">
+      © {new Date().getFullYear()} Vigarartattoo®
+    </footer>
+  </main>
+</BaseLayout>

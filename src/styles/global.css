@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reveal (bidirectional: visible but soft by default) */
+.js .reveal {
+  opacity: 0.38;
+  transform: translateY(16px);
+  filter: blur(2px);
+  transition: opacity 520ms ease, transform 520ms ease, filter 520ms ease;
+  will-change: opacity, transform, filter;
+}
+
+.js .reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Stagger items (repeatable) */
+.js .reveal-item {
+  opacity: 0.45;
+  transform: translateY(10px);
+  transition: opacity 420ms ease, transform 420ms ease;
+  will-change: opacity, transform;
+}
+
+.js .reveal-item.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Parallax perf hint */
+[data-parallax],
+.hero-glow-1,
+.hero-glow-2 {
+  will-change: transform;
+}
+
+/* -----------------------------
+   Mobile menu transitions (FIX)
+   ----------------------------- */
+
+/* When hidden via Tailwind "hidden", it is display:none and won't animate.
+   When shown, we animate opacity and block interaction behind the overlay. */
+.menu-overlay {
+  opacity: 0;
+  transition: opacity 180ms ease;
+  pointer-events: none; /* ✅ important: avoid "ghost overlay" state */
+}
+
+.menu-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto; /* ✅ overlay captures clicks only when open */
+}
+
+.menu-panel {
+  transform: translateX(16px);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.menu-overlay.is-open .menu-panel {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.menu-backdrop {
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.menu-overlay.is-open .menu-backdrop {
+  opacity: 1;
+}
+
+/* --------------------------------
+   Sticky header animation (FIX)
+   -------------------------------- */
+
+/* Default: not interactable until visible (prevents "invisible bar" issues) */
+.sticky-header {
+  transition: opacity 200ms ease, transform 200ms ease;
+  transform: translateY(-10px);
+  opacity: 0;
+  pointer-events: none; /* ✅ prevents weird click/focus when hidden */
+}
+
+.sticky-header.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto; /* ✅ clickable only when visible */
+}
+
+/* Optional: subtle scroll cue animation */
+@keyframes nudgeDown {
+  0% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  60% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+}
+
+.scroll-cue {
+  animation: nudgeDown 1.6s ease-in-out infinite;
+}
+
+/* Glass - premium, subtle */
+.glass {
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.03)
+    );
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    900px 200px at 20% 0%,
+    rgba(255, 255, 255, 0.12),
+    transparent 60%
+  );
+  opacity: 0.9;
+}
+
+.glass-soft {
+  background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.02)
+    );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Glass readability on bright backgrounds */
+.glass-strong {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.28)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.glass-strong::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    900px 220px at 20% 0%,
+    rgba(255, 255, 255, 0.10),
+    transparent 62%
+  );
+  opacity: 0.85;
+}
+
+/* Tiny text shadow for readability */
+.text-glass {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.65),
+    0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Active link on floating menus */
+.nav-pill {
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.nav-pill.is-active {
+  background: rgba(255, 255, 255, 0.10);
+  transform: translateY(-1px);
+}

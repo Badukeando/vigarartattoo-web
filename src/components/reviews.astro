@@ -1,0 +1,65 @@
+---
+import type { Review } from "../data/reviews";
+
+const {
+  title = "Lo que dicen mis clientes",
+  items,
+  googleUrl,
+  max = 6,
+} = Astro.props as {
+  title?: string;
+  items: Review[];
+  googleUrl: string;
+  max?: number;
+};
+
+const shown = items.slice(0, max);
+
+function stars(rating: number) {
+  return Array.from({ length: 5 }, (_, i) => i < rating);
+}
+---
+
+<section class="rounded-3xl border border-white/10 bg-white/5 p-6">
+  <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <h3 class="text-xl font-semibold">{title}</h3>
+      <p class="mt-1 text-sm text-zinc-400">Reseñas en Google</p>
+    </div>
+
+    <a
+      href={googleUrl}
+      target="_blank"
+      rel="noreferrer"
+      class="inline-flex w-fit items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
+      aria-label="Ver más reseñas en Google"
+    >
+      Ver más en Google →
+    </a>
+  </div>
+
+  <div class="mt-6 grid gap-4 md:grid-cols-2">
+    {shown.map((r) => (
+      <article class="rounded-2xl border border-white/10 bg-zinc-950/40 p-5">
+        <header class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <p class="truncate text-sm font-semibold text-white">{r.author}</p>
+            <p class="mt-0.5 text-xs text-zinc-500">
+              {r.date ? r.date : "Reseña"}{r.service ? ` · ${r.service}` : ""}
+            </p>
+          </div>
+
+          <div class="flex shrink-0 items-center gap-1" aria-label={`${r.rating} de 5`}>
+            {stars(r.rating).map((on) => (
+              <span class={on ? "text-yellow-300" : "text-white/15"} aria-hidden="true">★</span>
+            ))}
+          </div>
+        </header>
+
+        <p class="mt-3 text-sm leading-relaxed text-zinc-200">
+          {r.text}
+        </p>
+      </article>
+    ))}
+  </div>
+</section>
