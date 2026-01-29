@@ -1,8 +1,8 @@
 ---
 type Item = {
   // Backward compatible:
-  src?: string;      // previously used for everything
-
+  src: string;
+  
   // New fields (preferred):
   thumbSrc?: string; // lightweight webp for grid
   fullSrc?: string;  // original jpeg for lightbox
@@ -31,20 +31,32 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
           type="button"
           class="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
           data-gallery-item
-          data-src={full}          // ✅ lightbox uses full image
-          data-thumb={thumb}       // (optional, could be used later)
+          data-src={full}
+          data-thumb={thumb}
           data-alt={item.alt}
           aria-label={"Abrir imagen: " + item.alt}
           title={item.alt}
         >
+
+        <picture>
+          <source
+            srcset={item.src.replace('/portfolio/', '/portfolio/')
+              .replace(/\/([^\/]+)\.(jpe?g|png)$/i, '/thumbs/$1.avif')}
+            type="image/avif"
+          />
+          <source
+            srcset={item.src.replace(/\/([^\/]+)\.(jpe?g|png)$/i, '/thumbs/$1.webp')}
+            type="image/webp"
+          />
           <img
-            src={thumb}            // ✅ grid uses thumb (webp)
+            src={item.src.replace(/\/([^\/]+)\.(jpe?g|png)$/i, '/thumbs/$1.webp')}
             alt={item.alt}
             class="aspect-square w-full object-cover transition duration-300 group-hover:scale-[1.03]"
             loading={index < 6 ? "eager" : "lazy"}
             decoding="async"
-            fetchpriority={index < 2 ? "high" : "auto"}
           />
+          </picture>
+
         </button>
       );
     })}
@@ -198,6 +210,21 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
       if (!(img instanceof HTMLImageElement)) return;
 
       const buttons = Array.from(grid.querySelectorAll("[data-gallery-item]"));
+
+      // Preload full image on hover / touch (performance boost)
+      buttons.forEach((btn) => {
+        const src = btn.getAttribute("data-src");
+        if (!src) return;
+
+        const preload = () => {
+          const img = new Image();
+          img.src = src;
+        };
+
+        btn.addEventListener("mouseenter", preload, { once: true });
+        btn.addEventListener("touchstart", preload, { once: true, passive: true });
+      });
+
       const items = buttons.map((b) => ({
         src: b.getAttribute("data-src") || "", // ✅ full image
         alt: b.getAttribute("data-alt") || "",
