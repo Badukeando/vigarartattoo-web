@@ -1,36 +1,74 @@
 ---
 import "../styles/global.css";
-const { title = "Vigarartattoo" } = Astro.props;
----
 
+/**
+ * SEO + Social defaults (multi-language).
+ * Pass props from each page to customize metadata per route.
+ */
+const {
+  title = "Vigarartattoo",
+  description = "Tattoo studio in Málaga. Fine line, blackwork and custom designs.",
+  canonical = "https://vigarartattoo.pages.dev/",
+  ogImage = "/images/heroImg/rocio_001.jpeg",
+
+  // i18n
+  lang = "es",               // "es" | "en"
+  alternateEs = "https://vigarartattoo.pages.dev/",
+  alternateEn = "https://vigarartattoo.pages.dev/en/",
+} = Astro.props;
+
+const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
+---
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- ✅ hreflang alternates -->
+    <link rel="alternate" href={alternateEs} hreflang="es" />
+    <link rel="alternate" href={alternateEn} hreflang="en" />
+    <link rel="alternate" href={alternateEs} hreflang="x-default" />
+
+    <meta name="robots" content="index,follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
+
 
   <body class="min-h-screen bg-zinc-950 text-zinc-100">
     <slot />
 
-      <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "TattooParlor",
-        "name": "Vigarartattoo",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Málaga",
-          "addressCountry": "ES"
-        },
-        "url": "https://vigarartattoo.pages.dev",
-        "sameAs": [
-          "https://www.instagram.com/vigarartattoo/"
-        ]
-      }
-      </script>
-
+    <!-- Local business structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "TattooParlor",
+      "name": "Vigarartattoo",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Málaga",
+        "addressCountry": "ES"
+      },
+      "url": siteUrl,
+      "sameAs": [
+        "https://www.instagram.com/vigarartattoo/"
+      ]
+    })} />
 
     <!-- Enable JS-only CSS rules -->
     <script>
@@ -180,8 +218,9 @@ const { title = "Vigarartattoo" } = Astro.props;
         sticky.dataset.vigarStickyInit = "true";
 
         const showAfter = 260;
-        let hideTimer = 0;
+        let hideTimer: ReturnType<typeof setTimeout> | undefined;
 
+        // ✅ Use the same attribute name everywhere
         const isLightboxOpen = () =>
           document.documentElement.dataset.lightboxOpen === "true";
 
@@ -206,6 +245,7 @@ const { title = "Vigarartattoo" } = Astro.props;
         update();
         window.addEventListener("scroll", update, { passive: true });
 
+        // ✅ Observe the correct attribute: data-lightbox-open
         new MutationObserver(update).observe(document.documentElement, {
           attributes: true,
           attributeFilter: ["data-lightbox-open"],
@@ -243,8 +283,8 @@ const { title = "Vigarartattoo" } = Astro.props;
       type="button"
       class="fixed bottom-5 right-5 z-[70] hidden h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-zinc-950/70 text-white shadow-lg shadow-black/30 backdrop-blur transition hover:bg-zinc-900/70 focus:outline-none focus:ring-2 focus:ring-white/30"
       data-scrolltop
-      aria-label="Subir arriba"
-      title="Subir arriba"
+      aria-label="Scroll to top"
+      title="Scroll to top"
     >
       ↑
     </button>
@@ -292,119 +332,11 @@ const { title = "Vigarartattoo" } = Astro.props;
         });
       });
     </script>
-    
+
     <!-- Active section highlight -->
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    if (document.documentElement.dataset.vigarSectionHighlightInit === "true") return;
-    document.documentElement.dataset.vigarSectionHighlightInit = "true";
-
-    const navs = Array.from(document.querySelectorAll("[data-section-nav]"));
-
-    // If no scoped navs exist, fall back to the whole document
-    const scopeRoots: Array<ParentNode> = navs.length ? navs : [document];
-
-    const links = scopeRoots
-      .flatMap((root) => Array.from(root.querySelectorAll("[data-section-link]")))
-      .filter((a): a is HTMLAnchorElement => a instanceof HTMLAnchorElement);
-
-    if (!links.length) return;
-
-    const normalizeId = (v: string | null) => (v || "").replace(/^#/, "").trim();
-
-    // ✅ Keep strong typing (avoid filter(Boolean) / weak inference)
-    const ids: string[] = Array.from(
-      new Set(
-        links
-          .map((a) => normalizeId(a.getAttribute("data-section-link")))
-          .filter((v): v is string => v.length > 0)
-      )
-    );
-
-    const sections = ids
-      .map((id: string) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el instanceof HTMLElement);
-
-    if (!sections.length) return;
-
-    const setActive = (id: string) => {
-      links.forEach((a) => {
-        const match = normalizeId(a.getAttribute("data-section-link")) === id;
-
-        a.classList.toggle("text-white", match);
-        a.classList.toggle("font-semibold", match);
-        a.classList.toggle("border-white/30", match);
-        a.classList.toggle("is-active", match);
-
-        if (match) a.setAttribute("aria-current", "true");
-        else a.removeAttribute("aria-current");
-      });
-    };
-
-    const clearActive = () => {
-      links.forEach((a) => {
-        a.classList.remove("text-white", "font-semibold", "border-white/30", "is-active");
-        a.removeAttribute("aria-current");
-      });
-    };
-
-    const getTopOffset = () => {
-      const sticky = document.querySelector("[data-sticky-header]");
-      if (sticky instanceof HTMLElement && sticky.classList.contains("is-visible")) {
-        return sticky.getBoundingClientRect().height + 16;
-      }
-      return 24;
-    };
-
-    // ✅ Start with no active item
-    let activeId: string = "";
-    clearActive();
-
-    let ticking = false;
-
-    const update = () => {
-      ticking = false;
-
-      // ✅ Do not highlight anything until the user actually scrolls a bit
-      const y = window.scrollY || document.documentElement.scrollTop;
-      if (y < 8) {
-        if (activeId !== "") {
-          activeId = "";
-          clearActive();
-        }
-        return;
-      }
-
-      const offset = getTopOffset();
-      let current = sections[0];
-
-      for (const s of sections) {
-        const top = s.getBoundingClientRect().top;
-        if (top - offset <= 0) current = s;
-        else break;
-      }
-
-      const nearBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
-      if (nearBottom) current = sections[sections.length - 1];
-
-      if (current.id !== activeId) {
-        activeId = current.id;
-        setActive(activeId);
-      }
-    };
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(update);
-    };
-
-    // No initial update(); only after first scroll/resize
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-  });
-</script>
-
+    <script type="module">
+      import { initActiveSectionHighlight } from "../scripts/activeSectionHighlight";
+      window.addEventListener("DOMContentLoaded", initActiveSectionHighlight);
+    </script>
   </body>
 </html>

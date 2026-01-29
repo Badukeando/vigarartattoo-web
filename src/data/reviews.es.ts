@@ -9,7 +9,7 @@ export type Review = {
 };
 
 export const googleMapsReviewsUrl =
-  "https://www.google.com/search?sca_esv=fc9cc7141bd3a5ec&sxsrf=ANbL-n51HCh9dSsMKPF45nM70xL4jm7NTQ:1769616791586&q=Vigarartattoo&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOcHG-aZidEvXOkiid70Q50A2jO_F544uN4iBNyUNdbMnBKv7dvdzPTeStpJGBd4YEDktzjE%3D&uds=ALYpb_kKdx-oX15sdjMUmdmJV1RhNkGvg4U52IY7-bY_BFf96cY5f75rqzoc53LSelrUBpYTB0OWiiEXWhcMYggk2ip54BoG8n2bOQSs7KrBhwSRVNir4rw&sa=X&ved=2ahUKEwjr4oCi0K6SAxUBRPEDHUY1O0cQ3PALegQIHBAE&biw=1920&bih=911&dpr=1&aic=0";
+  "https://www.google.com/search?sa=X&sca_esv=fc9cc7141bd3a5ec&sxsrf=ANbL-n7uGmEvlxmFbwFTgPBY7xnZ-gI8Gw:1769680290464&q=Vigarartattoo+Studio+Rese%C3%B1as&rflfq=1&num=20&stick=H4sIAAAAAAAAAONgkxIxNDAzNDezNLK0MDYxMTAxAbLMNzAyvmKUDctMTyxKLCpJLCnJz1cILilNycxXCEotTj28MbF4ESt-eQCTkwZBWwAAAA&rldimm=10617692983440449297&tbm=lcl&hl=es-DE&ved=2ahUKEwie0dDovLCSAxVy_7sIHVH8MSEQ9fQKegQIVBAG&biw=1920&bih=911&dpr=1&aic=0#lkt=LocalPoiReviews";
 
 export const reviews: Review[] = [
   {

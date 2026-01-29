@@ -1,27 +1,31 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import GalleryLightbox from "../components/GalleryLightbox.astro";
-import { featuredItems } from "../data/portfolio";
-import { reviews, googleMapsReviewsUrl } from "../data/reviews.es";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GalleryLightbox from "../../components/GalleryLightbox.astro";
+import { featuredItems } from "../../data/portfolio";
+import { reviews, googleMapsReviewsUrl } from "../../data/reviews.en";
 
 const whatsappLink = "https://wa.me/34600254338";
 const instagramLink = "https://www.instagram.com/vigarartattoo/";
 const mapsLink = "https://maps.app.goo.gl/aDDJfWMDJhcXpEHE7";
+
+// SEO
+const canonical = "https://vigarartattoo.pages.dev/en/";
+const description =
+  "Tattoo studio in Málaga by Rocío. Fine line, blackwork and color tattoos with a careful, personal approach.";
 
 // Put your chosen hero photo in /public/images/hero/ and set the path here:
 const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
 ---
 
 <BaseLayout
-  lang="es"
-  title="Vigarartattoo | Tatuajes en Málaga"
-  description="Estudio de tatuajes en Málaga por Rocío. Fine line, blackwork y color con diseño cuidado y trato cercano."
-  canonical="https://vigarartattoo.pages.dev/"
+  lang="en"
+  title="Vigarartattoo | Tattoo Studio in Málaga"
+  description={description}
+  canonical={canonical}
   alternateEs="https://vigarartattoo.pages.dev/"
   alternateEn="https://vigarartattoo.pages.dev/en/"
   ogImage="/images/heroImg/rocio_001.jpeg"
 >
-
   <main class="mx-auto max-w-6xl px-4">
     <!-- Sticky header (appears on scroll) -->
     <div
@@ -55,7 +59,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href="#estilos"
               data-section-link="estilos"
             >
-              Estilos
+              Styles
             </a>
 
             <a
@@ -63,7 +67,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href="#sobre"
               data-section-link="sobre"
             >
-              Sobre Mí
+              About
             </a>
 
             <a
@@ -71,15 +75,15 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href="#contacto"
               data-section-link="contacto"
             >
-              Contacto
+              Contact
             </a>
 
-            <!-- ✅ "Trabajos" no es sección: NO debe tener data-section-link -->
+            <!-- ✅ Works is a page, not a section -->
             <a
               class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
-              href="/works"
+              href="/en/works"
             >
-              Trabajos
+              Works
             </a>
           </nav>
 
@@ -88,8 +92,10 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
             href={whatsappLink}
             target="_blank"
             rel="noreferrer"
+            aria-label="Book via WhatsApp"
+            title="Book"
           >
-            Reservar
+            Book
           </a>
         </div>
       </div>
@@ -97,22 +103,22 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
 
     <!-- NAV -->
 <header class="relative flex items-center justify-between py-6">
-  <a href="#" class="text-lg font-semibold tracking-wide">
+  <a href="/en/" class="text-lg font-semibold tracking-wide">
     Vigarartattoo
   </a>
 
-  <!-- ✅ Language switcher (mobile - perfectly centered) -->
+  <!-- ✅ Language switcher (mobile - centered) -->
   <div class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-zinc-300">
     <a
-      class="rounded-full border border-white/10 px-2.5 py-1 bg-white/10 text-white"
+      class="rounded-full border border-white/10 px-2.5 py-1 hover:bg-white/5"
       href="/"
-      aria-current="page"
     >
       ES
     </a>
     <a
-      class="rounded-full border border-white/10 px-2.5 py-1 hover:bg-white/5"
+      class="rounded-full border border-white/10 px-2.5 py-1 bg-white/10 text-white"
       href="/en/"
+      aria-current="page"
     >
       EN
     </a>
@@ -121,10 +127,10 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
   <!-- Desktop nav -->
   <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
     <a class="hover:text-white" href="#portfolio">Portfolio</a>
-    <a class="hover:text-white" href="#estilos">Estilos</a>
-    <a class="hover:text-white" href="#sobre">Sobre Mí</a>
-    <a class="hover:text-white" href="#contacto">Contacto</a>
-    <a class="hover:text-white" href="/works">Trabajos</a>
+    <a class="hover:text-white" href="#estilos">Styles</a>
+    <a class="hover:text-white" href="#sobre">About</a>
+    <a class="hover:text-white" href="#contacto">Contact</a>
+    <a class="hover:text-white" href="/en/works">Works</a>
   </nav>
 
   <div class="flex items-center gap-3">
@@ -132,25 +138,25 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
     <button
       type="button"
       class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 md:hidden"
-      aria-label="Abrir menú"
+      aria-label="Open menu"
       data-menu-open
     >
-      Menú
+      Menu
     </button>
   </div>
 
   <!-- ✅ Language switcher (desktop) -->
   <div class="hidden items-center gap-2 text-sm text-zinc-300 md:flex">
     <a
-      class="rounded-full border border-white/10 px-3 py-1 bg-white/10 text-white"
+      class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
       href="/"
-      aria-current="page"
     >
       ES
     </a>
     <a
-      class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+      class="rounded-full border border-white/10 px-3 py-1 bg-white/10 text-white"
       href="/en/"
+      aria-current="page"
     >
       EN
     </a>
@@ -161,7 +167,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
         <!-- Backdrop -->
         <button
           class="menu-backdrop absolute inset-0 bg-black/70"
-          aria-label="Cerrar menú"
+          aria-label="Close menu"
           data-menu-close
           type="button"
         ></button>
@@ -173,10 +179,10 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
             <button
               type="button"
               class="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
-              aria-label="Cerrar menú"
+              aria-label="Close menu"
               data-menu-close
             >
-              Cerrar
+              Close
             </button>
           </div>
 
@@ -194,7 +200,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href="#estilos"
               data-menu-link
             >
-              Estilos
+              Styles
             </a>
 
             <a
@@ -202,24 +208,24 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href="#contacto"
               data-menu-link
             >
-              Contacto
+              Contact
             </a>
 
             <a
               class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
-              href="/works"
+              href="/en/works"
               data-menu-link
             >
-              Trabajos
+              Works
             </a>
 
             <a
-              class="mt-2 rounded-2xl bg-white px-4 py-3 text-center font-semibold text-zinc-950 hover:bg-zinc-200"
+              class="mt-3 rounded-2xl bg-white px-4 py-3 text-center font-semibold text-zinc-950 hover:bg-zinc-200"
               href={whatsappLink}
               target="_blank"
               rel="noreferrer"
             >
-              Reservar por WhatsApp
+              Book via WhatsApp
             </a>
 
             <a
@@ -239,7 +245,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
     <section class="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950">
       <img
         src={heroImageSrc}
-        alt="Rocío tatuando en el estudio"
+        alt="Rocío tattooing in the studio"
         class="absolute inset-0 h-full w-full object-cover"
         loading="eager"
         decoding="async"
@@ -250,14 +256,16 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
 
       <div class="relative grid gap-10 px-6 py-14 md:grid-cols-2 md:px-12 md:py-20">
         <div>
-          <p class="text-xs uppercase tracking-[0.35em] text-zinc-200/80">Tatuajes en Málaga</p>
+          <p class="text-xs uppercase tracking-[0.35em] text-zinc-200/80">
+            Tattoo Studio in Málaga
+          </p>
 
           <h1 class="mt-4 text-4xl font-semibold leading-tight text-white md:text-6xl">
-            Arte en la piel con detalle, precisión y estilo.
+            Skin art with detail, precision and style.
           </h1>
 
           <p class="mt-6 text-base text-zinc-200 md:text-lg">
-            Línea fina y tatuajes a color. Diseño cuidado, trato cercano y resultado impecable.
+            Fine line and color tattoos. Carefully crafted designs, a friendly approach, and a clean result.
           </p>
 
           <div class="mt-8 flex items-center gap-4">
@@ -265,7 +273,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href={whatsappLink}
               target="_blank"
               rel="noreferrer"
-              aria-label="Reservar por WhatsApp"
+              aria-label="Book via WhatsApp"
               title="WhatsApp"
               class="group flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 transition hover:scale-110 hover:bg-white/20"
             >
@@ -293,7 +301,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href={mapsLink}
               target="_blank"
               rel="noreferrer"
-              aria-label="Abrir en Google Maps"
+              aria-label="Open in Google Maps"
               title="Google Maps"
               class="group flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 transition hover:scale-110 hover:bg-white/20"
             >
@@ -311,11 +319,11 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
       <div class="flex items-end justify-between gap-6">
         <div>
           <h2 class="text-2xl font-semibold md:text-3xl">Portfolio</h2>
-          <p class="mt-2 text-sm text-zinc-400">Una selección de trabajos destacados.</p>
+          <p class="mt-2 text-sm text-zinc-400">A selection of featured work.</p>
         </div>
 
-        <a class="text-sm text-zinc-300 hover:text-white" href="/works">
-          Ver portfolio completo →
+        <a class="text-sm text-zinc-300 hover:text-white" href="/en/works">
+          View full portfolio →
         </a>
       </div>
 
@@ -325,23 +333,23 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
 
       <div class="mt-6">
         <a
-          href="/works"
+          href="/en/works"
           class="inline-flex rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5"
         >
-          Ver todos los trabajos
+          View all works
         </a>
       </div>
     </section>
 
-    <!-- ESTILOS -->
+    <!-- STYLES -->
     <section id="estilos" class="reveal pb-16 pt-10">
-      <h2 class="text-2xl font-semibold md:text-3xl">Estilos</h2>
+      <h2 class="text-2xl font-semibold md:text-3xl">Styles</h2>
 
       <div class="mt-8 grid gap-4 md:grid-cols-3">
         {[
-          { t: "Fine line", d: "Trazos finos, delicados y elegantes.", href: "/works#fine-line" },
-          { t: "Blackwork", d: "Negro sólido, contraste y piezas potentes.", href: "/works#blackwork" },
-          { t: "Color", d: "Piezas vibrantes con contraste y detalle.", href: "/works#color" },
+          { t: "Fine line", d: "Delicate, elegant thin lines.", href: "/en/works#fine-line" },
+          { t: "Blackwork", d: "Bold black ink, contrast and strong pieces.", href: "/en/works#blackwork" },
+          { t: "Color", d: "Vibrant pieces with contrast and detail.", href: "/en/works#color" },
         ].map((s) => (
           <a
             href={s.href}
@@ -349,14 +357,14 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
           >
             <h3 class="text-lg font-semibold">{s.t}</h3>
             <p class="mt-2 text-sm text-zinc-300">{s.d}</p>
-            <p class="mt-4 text-xs text-zinc-400">Ver trabajos →</p>
+            <p class="mt-4 text-xs text-zinc-400">View works →</p>
           </a>
         ))}
       </div>
 
       <div class="mt-4">
-        <a class="text-sm text-zinc-300 hover:text-white" href="/works">
-          Ver todos los estilos →
+        <a class="text-sm text-zinc-300 hover:text-white" href="/en/works">
+          View all styles →
         </a>
       </div>
     </section>
@@ -365,33 +373,32 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
     <section id="sobre" class="reveal pb-16 pt-10">
       <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
         <p class="text-xs uppercase tracking-[0.35em] text-zinc-400">
-          Sobre Rocío
+          About Rocío
         </p>
 
         <h2 class="mt-4 max-w-3xl text-2xl font-semibold md:text-4xl">
-          Tatuajes con detalle, cuidado y un trato cercano.
+          Tattoos with detail, care and a friendly approach.
         </h2>
 
         <p class="mt-5 max-w-3xl text-sm leading-relaxed text-zinc-300 md:text-base">
-          Nací con un lápiz en la mano y dibujar siempre ha sido mi hobby favorito. Mi enamoramiento
-          con el mundo del tatuaje fue a primera vista: de pequeña siempre llevaba calcomanías y
-          tatuajes temporales por el cuerpo. Estudié en la Escuela de Artes, aunque también he
-          tenido pasión por el deporte y cuento con dos titulaciones de monitora deportiva y
-          nutricionista. Pero el arte siempre ha sido mi motor, y al final me lo jugué todo a una.
-          Tomé la decisión justo después del confinamiento: ¿por qué no dedicarme a lo que me
-          apasiona? Sin duda, es lo mejor que pude hacer. Ahora tengo mi propio estudio en Málaga,
-          aunque me muevo por diferentes ciudades dejando mi huellita de tinta por donde voy.
+          I’ve always had a pencil in my hand—drawing has been my favorite hobby for as long as I can remember.
+          Falling in love with tattooing happened instantly: as a kid I was always covered in temporary tattoos.
+          I studied at Art School, and I’ve also been passionate about sports, earning two certifications as a sports instructor
+          and nutritionist. But art has always been my driving force, and in the end I went all in.
+          Right after the lockdown I made the decision: why not dedicate myself to what truly excites me?
+          It’s the best choice I could have made. Today I have my own studio in Málaga, and I also travel to different cities,
+          leaving a small ink “signature” wherever I go.
         </p>
 
         <h3 class="mt-10 text-lg font-semibold text-white md:text-xl">
-          Qué puedes esperar de mí
+          What you can expect
         </h3>
 
         <ul class="mt-4 grid gap-3 text-sm text-zinc-300 md:grid-cols-2">
-          <li>• Diseños personalizados y asesoramiento previo</li>
-          <li>• Especialidad en fine line y color</li>
-          <li>• Trato cercano y ambiente cómodo</li>
-          <li>• Atención antes y después de la sesión</li>
+          <li>• Custom designs and pre-session guidance</li>
+          <li>• Specialized in fine line and color</li>
+          <li>• Friendly approach and comfortable atmosphere</li>
+          <li>• Support before and after the session</li>
         </ul>
       </div>
     </section>
@@ -400,10 +407,10 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
     <section class="reveal pb-20">
       <header class="mb-6">
         <h3 class="text-xl font-semibold md:text-2xl">
-          Opiniones de clientes
+          Client reviews
         </h3>
         <p class="mt-1 text-sm text-zinc-400">
-          Reseñas reales en Google Maps
+          Real reviews on Google Maps
         </p>
       </header>
 
@@ -439,18 +446,18 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
           rel="noreferrer"
           class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10"
         >
-          Ver todas las reseñas en Google →
+          See all Google reviews →
         </a>
       </div>
     </section>
 
-    <!-- CONTACTO -->
+    <!-- CONTACT -->
     <section id="contacto" class="reveal pb-20 pt-10">
-      <h2 class="text-2xl font-semibold md:text-3xl">Contacto</h2>
+      <h2 class="text-2xl font-semibold md:text-3xl">Contact</h2>
 
       <div class="mt-8 grid gap-6 md:grid-cols-2">
         <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <p class="text-sm text-zinc-300">Reserva directa:</p>
+          <p class="text-sm text-zinc-300">Direct booking:</p>
 
           <div class="mt-8 grid grid-cols-3 gap-4 text-center">
             <a
@@ -458,7 +465,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               target="_blank"
               rel="noreferrer"
               class="group flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"
-              aria-label="Abrir WhatsApp"
+              aria-label="Open WhatsApp"
             >
               <svg class="h-7 w-7 text-green-400 transition group-hover:scale-110" viewBox="0 0 32 32" fill="currentColor">
                 <path d="M16 2.7c-7.4 0-13.3 5.7-13.3 12.8 0 2.3.6 4.6 1.9 6.6L2 29.3l7.5-2.4c1.9 1 4.2 1.6 6.5 1.6 7.4 0 13.3-5.7 13.3-12.8S23.4 2.7 16 2.7zm0 23.3c-2.1 0-4.1-.6-5.9-1.6l-.4-.2-4.4 1.4 1.4-4.2-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9 0-6.1 5.2-11.1 11.4-11.1s11.4 5 11.4 11.1-5.2 11.1-11.4 11.1zm6.4-8.4c-.4-.2-2.2-1-2.6-1.1-.4-.1-.7-.2-1 .2-.3.4-1.1 1.1-1.4 1.4-.3.3-.5.3-.9.1-.4-.2-1.7-.6-3.2-2-.6-.5-1-1.1-1.3-1.5-.3-.4 0-.6.2-.8.2-.2.4-.4.6-.6.2-.2.3-.4.4-.6.1-.2.1-.4 0-.6-.1-.2-1-2.4-1.4-3.3-.4-.9-.7-.7-1-.7h-.9c-.3 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3 0 1.8 1.2 3.5 1.4 3.7.2.2 2.4 3.6 5.9 5 3.5 1.4 3.5.9 4.2.9.7 0 2.2-.9 2.5-1.7.3-.8.3-1.5.2-1.7-.1-.2-.4-.3-.8-.5z"/>
@@ -471,7 +478,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               target="_blank"
               rel="noreferrer"
               class="group flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10"
-              aria-label="Abrir Instagram"
+              aria-label="Open Instagram"
             >
               <svg class="h-7 w-7 text-pink-400 transition group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A4.5 4.5 0 1 0 16.5 12 4.5 4.5 0 0 0 12 7.5zm0 7.3A2.8 2.8 0 1 1 14.8 12 2.8 2.8 0 0 1 12 14.8zM17.2 6.3a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1z"/>
@@ -480,16 +487,16 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
             </a>
           </div>
 
-          <p class="mt-6 text-sm text-zinc-300">Dirección:</p>
+          <p class="mt-6 text-sm text-zinc-300">Address:</p>
           <p class="mt-2 text-sm text-zinc-200">
             Calle Miguel Moreno Masson, 11<br />
-            29007 Málaga, España
+            29007 Málaga, Spain
           </p>
         </div>
 
         <div class="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
           <iframe
-            title="Mapa del estudio Vigarartattoo"
+            title="Vigarartattoo studio map"
             src="https://www.google.com/maps?q=Calle%20Miguel%20Moreno%20Masson%2011%20Malaga&output=embed"
             class="h-full w-full min-h-[260px] grayscale-[30%] contrast-[1.05]"
             loading="lazy"

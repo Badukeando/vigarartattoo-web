@@ -33,7 +33,6 @@ const heroImageSrc = "/images/heroImg/rocio_002.jpeg";
           </a>
 
           <nav class="hidden items-center gap-3 text-sm text-zinc-200 lg:flex text-glass" data-section-nav>
-
             <a
               class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
               href="#fine-line"
@@ -80,54 +79,66 @@ const heroImageSrc = "/images/heroImg/rocio_002.jpeg";
     </div>
 
     <!-- NAV -->
-    <header class="flex items-center justify-between py-6">
-      <a href="/" class="text-lg font-semibold tracking-wide">
-        Vigarartattoo
-      </a>
+<header class="relative flex items-center justify-between py-6">
+  <a href="/" class="text-lg font-semibold tracking-wide">
+    Vigarartattoo
+  </a>
 
-      <!-- Desktop nav -->
-      <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex" data-section-nav>
-        <a
-          class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
-          href="#fine-line"
-          data-section-link="fine-line"
-        >
-          Fine line
-        </a>
-        <a
-          class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
-          href="#blackwork"
-          data-section-link="blackwork"
-        >
-          Blackwork
-        </a>
-        <a
-          class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
-          href="#color"
-          data-section-link="color"
-        >
-          Color
-        </a>
-        <a
-          class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
-          href="#varios"
-          data-section-link="varios"
-        >
-          Varios
-        </a>
-      </nav>
+  <!-- ✅ Language switcher (mobile - centered) -->
+  <div class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-zinc-300">
+    <a
+      class="rounded-full border border-white/10 px-2.5 py-1 bg-white/10 text-white"
+      href="/works"
+      aria-current="page"
+    >
+      ES
+    </a>
+    <a
+      class="rounded-full border border-white/10 px-2.5 py-1 hover:bg-white/5"
+      href="/en/works"
+    >
+      EN
+    </a>
+  </div>
 
-      <div class="flex items-center gap-3">
-        <!-- Mobile menu button -->
-        <button
-          type="button"
-          class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 md:hidden"
-          aria-label="Abrir menú"
-          data-menu-open
-        >
-          Menú
-        </button>
-      </div>
+  <!-- Desktop nav -->
+  <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex" data-section-nav>
+    <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href="#fine-line" data-section-link="fine-line">Fine line</a>
+    <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href="#blackwork" data-section-link="blackwork">Blackwork</a>
+    <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href="#color" data-section-link="color">Color</a>
+    <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href="#varios" data-section-link="varios">Varios</a>
+  </nav>
+
+  
+
+  <div class="flex items-center gap-3">
+    <!-- Mobile menu button -->
+    <button
+      type="button"
+      class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 md:hidden"
+      aria-label="Abrir menú"
+      data-menu-open
+    >
+      Menú
+    </button>
+  </div>     
+
+  <!-- ✅ Language switcher (desktop) -->
+  <div class="hidden md:flex items-center gap-2 text-sm text-zinc-300">
+    <a
+      class="rounded-full border border-white/10 px-3 py-1 bg-white/10 text-white"
+      href="/works"
+      aria-current="page"
+    >
+      ES
+    </a>
+    <a
+      class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+      href="/en/works"
+    >
+      EN
+    </a>
+  </div>
 
       <!-- Mobile overlay -->
       <div class="menu-overlay fixed inset-0 z-50 hidden" data-menu-overlay aria-hidden="true">
@@ -187,7 +198,7 @@ const heroImageSrc = "/images/heroImg/rocio_002.jpeg";
             </a>
 
             <a
-              class="mt-2 rounded-2xl bg-white px-4 py-3 text-center font-semibold text-zinc-950 hover:bg-zinc-200"
+              class="mt-3 rounded-2xl bg-white px-4 py-3 text-center font-semibold text-zinc-950 hover:bg-zinc-200"
               href={whatsappLink}
               target="_blank"
               rel="noreferrer"
