@@ -1,9 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GalleryLightbox from "../components/GalleryLightbox.astro";
-import { featuredItems } from "../data/portfolio";
+import { featuredItems, getPortfolioAlt } from "../data/portfolio";
 import { reviews, googleMapsReviewsUrl } from "../data/reviews.es";
-import { studioItems } from "../data/studio";
+import { getStudioItems } from "../data/studio";
+
+const lang = "es";
+const studioItems = getStudioItems(lang);
 
 const whatsappLink = "https://wa.me/34600254338";
 const instagramLink = "https://www.instagram.com/vigarartattoo/";
@@ -11,6 +14,12 @@ const mapsLink = "https://maps.app.goo.gl/aDDJfWMDJhcXpEHE7";
 
 // Put your chosen hero photo in /public/images/hero/ and set the path here:
 const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
+
+const featuredItemsEs = featuredItems.map((x) => ({
+  ...x,
+  alt: getPortfolioAlt(x, "es"),
+}));
+
 ---
 
 <BaseLayout
@@ -401,7 +410,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
       </div>
 
       <div class="mt-8">
-        <GalleryLightbox items={featuredItems} galleryId="home-featured" />
+        <GalleryLightbox items={featuredItemsEs} galleryId="home-featured" />
       </div>
 
       <div class="mt-6">
@@ -457,29 +466,31 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
     </section>
 
     <!-- Studio -->
-    <section id="estudio" class="reveal pb-16 pt-10">
-      <div class="flex items-end justify-between gap-6">
-        <div>
-          <h2 class="text-2xl font-semibold md:text-3xl">El estudio</h2>
-          <p class="mt-2 text-sm text-zinc-400">
-            Un espacio cuidado, cómodo y profesional.
-          </p>
-        </div>
+<section id="estudio" class="reveal pb-16 pt-10">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <h2 class="text-2xl font-semibold md:text-3xl">
+        El estudio
+      </h2>
+      <p class="mt-2 text-sm text-zinc-400">
+        Un espacio cuidado, cómodo y profesional.
+      </p>
+    </div>
 
-        <a
-          href={mapsLink}
-          target="_blank"
-          rel="noreferrer"
-          class="text-sm text-zinc-300 hover:text-white"
-        >
-          Ver ubicación →
-        </a>
-      </div>
+    <a
+      href={mapsLink}
+      target="_blank"
+      rel="noreferrer"
+      class="text-sm text-zinc-300 hover:text-white"
+    >
+      Ver ubicación →
+    </a>
+  </div>
 
-      <div class="mt-8">
-        <GalleryLightbox items={studioItems} galleryId="home-studio" />
-      </div>
-    </section>
+  <div class="mt-8">
+    <GalleryLightbox items={studioItems} galleryId="home-studio" />
+  </div>
+</section>
 
     <!-- About -->
     <section id="sobre" class="reveal pb-16 pt-10">

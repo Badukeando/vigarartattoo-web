@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import GalleryLightbox from "../../components/GalleryLightbox.astro";
-import { featuredItems } from "../../data/portfolio";
+import { featuredItems, getPortfolioAlt } from "../../data/portfolio";
 import { reviews, googleMapsReviewsUrl } from "../../data/reviews.en";
-import { studioItems } from "../../data/studio";
+import { getStudioItems } from "../../data/studio";
 
+const lang = "en";
+const studioItems = getStudioItems(lang);
 const whatsappLink = "https://wa.me/34600254338";
 const instagramLink = "https://www.instagram.com/vigarartattoo/";
 const mapsLink = "https://maps.app.goo.gl/aDDJfWMDJhcXpEHE7";
@@ -16,6 +18,12 @@ const description =
 
 // Put your chosen hero photo in /public/images/hero/ and set the path here:
 const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
+
+const featuredItemsEs = featuredItems.map((x) => ({
+  ...x,
+  alt: getPortfolioAlt(x, "en"),
+}));
+
 ---
 
 <BaseLayout
@@ -385,7 +393,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
       </div>
 
       <div class="mt-8">
-        <GalleryLightbox items={featuredItems} galleryId="home-featured" />
+        <GalleryLightbox items={featuredItemsEs} galleryId="home-featured" />
       </div>
 
       <div class="mt-6">
@@ -412,12 +420,12 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
             },
             {
               t: "Blackwork",
-              d: "Bold blank ink, strong contrast and powerfull pieces.",
+              d: "Blank ink, strong contrast and powerful pieces.",
               href: "/en/works#blackwork",
             },
             {
               t: "Color",
-              d: "Vibrant pieces with live details.",
+              d: "Vibrant pieces with vivid details.",
               href: "/en/works#color",
             },
           ].map((s) => (
@@ -440,30 +448,32 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
       </div>
     </section>
 
-    <!-- STUDIO -->
-    <section id="estudio" class="reveal pb-16 pt-10">
-      <div class="flex items-end justify-between gap-6">
-        <div>
-          <h2 class="text-2xl font-semibold md:text-3xl">The studio</h2>
-          <p class="mt-2 text-sm text-zinc-400">
-            A clean, comfortable and professional space.
-          </p>
-        </div>
+    <!-- Studio -->
+<section id="estudio" class="reveal pb-16 pt-10">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <h2 class="text-2xl font-semibold md:text-3xl">
+        The studio
+      </h2>
+      <p class="mt-2 text-sm text-zinc-400">
+        A clean, comfortable, and professional space.
+      </p>
+    </div>
 
-        <a
-          href={mapsLink}
-          target="_blank"
-          rel="noreferrer"
-          class="text-sm text-zinc-300 hover:text-white"
-        >
-          View location →
-        </a>
-      </div>
+    <a
+      href={mapsLink}
+      target="_blank"
+      rel="noreferrer"
+      class="text-sm text-zinc-300 hover:text-white"
+    >
+      See location →
+    </a>
+  </div>
 
-      <div class="mt-8">
-        <GalleryLightbox items={studioItems} galleryId="home-studio" />
-      </div>
-    </section>
+  <div class="mt-8">
+    <GalleryLightbox items={studioItems} galleryId="home-studio" />
+  </div>
+</section>
 
     <!-- About -->
     <section id="sobre" class="reveal pb-16 pt-10">

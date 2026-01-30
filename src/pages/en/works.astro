@@ -1,7 +1,14 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import GalleryLightbox from "../../components/GalleryLightbox.astro";
-import { portfolioByCategory } from "../../data/portfolio";
+import {
+  portfolioByCategory,
+  blackworkItems,
+  colorItems,
+  fineLineItems,
+  variosItems,
+  getPortfolioAlt,
+} from "../../data/portfolio";
 
 const whatsappLink = "https://wa.me/34600254338";
 const instagramLink = "https://www.instagram.com/vigarartattoo/";
@@ -15,12 +22,12 @@ const categories = [
   {
     key: "blackwork",
     title: "Blackwork",
-    desc: "Bold blank ink, strong contrast and powerfull pieces.",
+    desc: "Bold black ink, strong contrast and powerful pieces.",
   },
   {
     key: "color",
     title: "Color",
-    desc: "Vibrant pieces with live details.",
+    desc: "Vibrant pieces with lively details.",
   },
   {
     key: "varios",
@@ -30,11 +37,19 @@ const categories = [
 ] as const;
 
 const heroImageSrc = "/images/heroImg/rocio_002.jpeg";
+const lang = "en";
 
 // SEO
 const canonical = "https://vigarartattoo.pages.dev/en/works";
 const description =
   "Full tattoo portfolio by Vigarartattoo in Málaga. Browse works by style: fine line, blackwork, color and mixed.";
+
+const curatedByCategory = {
+  blackwork: blackworkItems,
+  color: colorItems,
+  "fine-line": fineLineItems,
+  varios: variosItems,
+} as const;
 ---
 
 <BaseLayout
@@ -300,8 +315,8 @@ const description =
         </h1>
 
         <p class="mt-6 max-w-2xl text-base text-zinc-200 md:text-lg">
-          Browse tattoos by style. Each piece is designed to fit you, your idea
-          and your skin.
+          Explore the tattoos by style. Each piece is designed to fit you, your
+          idea and your skin.
         </p>
       </div>
     </section>
@@ -310,7 +325,14 @@ const description =
     <div class="space-y-20 pb-20 pt-12">
       {
         categories.map((c) => {
-          const items = portfolioByCategory[c.key] ?? [];
+          const sourceItems =
+            curatedByCategory[c.key] ?? (portfolioByCategory[c.key] ?? []);
+
+          const items = sourceItems.map((i) => ({
+            ...i,
+            alt: getPortfolioAlt(i, lang),
+          }));
+
           const galleryId = `works-${c.key}`;
 
           return (

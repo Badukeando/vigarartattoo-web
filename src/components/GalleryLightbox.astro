@@ -31,32 +31,32 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
           type="button"
           class="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 text-left hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
           data-gallery-item
+          data-i18n-open
           data-src={full}
           data-thumb={thumb}
           data-alt={item.alt}
-          aria-label={"Abrir imagen: " + item.alt}
+          aria-label={item.alt}
           title={item.alt}
         >
-
-        <picture>
-          <source
-            srcset={item.src.replace('/portfolio/', '/portfolio/')
-              .replace(/\/([^\/]+)\.(jpe?g|png)$/i, '/thumbs/$1.avif')}
-            type="image/avif"
-          />
-          <source
-            srcset={item.src.replace(/\/([^\/]+)\.(jpe?g|png)$/i, '/thumbs/$1.webp')}
-            type="image/webp"
-          />
-          <img
-            src={item.src.replace(/\/([^\/]+)\.(jpe?g|png)$/i, '/thumbs/$1.webp')}
-            alt={item.alt}
-            class="aspect-square w-full object-cover transition duration-300 group-hover:scale-[1.03]"
-            loading={index < 6 ? "eager" : "lazy"}
-            decoding="async"
-          />
+          <picture>
+            <source
+              srcset={item.src
+                .replace("/portfolio/", "/portfolio/")
+                .replace(/\/([^\/]+)\.(jpe?g|png)$/i, "/thumbs/$1.avif")}
+              type="image/avif"
+            />
+            <source
+              srcset={item.src.replace(/\/([^\/]+)\.(jpe?g|png)$/i, "/thumbs/$1.webp")}
+              type="image/webp"
+            />
+            <img
+              src={item.src.replace(/\/([^\/]+)\.(jpe?g|png)$/i, "/thumbs/$1.webp")}
+              alt={item.alt}
+              class="aspect-square w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+              loading={index < 6 ? "eager" : "lazy"}
+              decoding="async"
+            />
           </picture>
-
         </button>
       );
     })}
@@ -76,6 +76,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
       class="absolute inset-0 bg-black/80 opacity-0 transition-opacity duration-200"
       data-lb-backdrop
       data-lb-close
+      data-i18n="closeLabel"
       aria-label="Cerrar"
     ></button>
 
@@ -99,6 +100,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
             class="pointer-events-auto rounded-full border border-white/10 bg-zinc-950/70 px-3 py-1 text-xs font-semibold text-white backdrop-blur hover:bg-zinc-900/70"
             data-lb-close
             data-lb-close-top
+            data-i18n="closeText"
             aria-label="Cerrar"
           >
             Cerrar ✕
@@ -110,6 +112,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
           type="button"
           class="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-2xl border border-white/10 bg-zinc-950/70 px-3 py-3 text-white backdrop-blur hover:bg-zinc-900/70"
           data-lb-prev
+          data-i18n="prevLabel"
           aria-label="Anterior"
         >
           ‹
@@ -119,6 +122,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
           type="button"
           class="absolute right-0 top-1/2 z-10 -translate-y-1/2 rounded-2xl border border-white/10 bg-zinc-950/70 px-3 py-3 text-white backdrop-blur hover:bg-zinc-900/70"
           data-lb-next
+          data-i18n="nextLabel"
           aria-label="Siguiente"
         >
           ›
@@ -141,6 +145,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
             <!-- Loading -->
             <div
               data-lb-loading
+              data-i18n="loading"
               class="pointer-events-none absolute inset-x-0 -bottom-10 text-center text-xs text-zinc-400 hidden"
             >
               Cargando…
@@ -149,6 +154,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
             <!-- Error -->
             <div
               data-lb-error
+              data-i18n="error"
               class="pointer-events-none absolute inset-x-0 -bottom-10 text-center text-xs text-red-200 hidden"
             >
               No se pudo cargar la imagen.
@@ -159,6 +165,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
               <button
                 type="button"
                 data-lb-retry
+                data-i18n="retry"
                 class="hidden rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-white hover:bg-white/10"
               >
                 Reintentar
@@ -168,7 +175,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
         </figure>
 
         <!-- Hint -->
-        <p class="mt-4 text-center text-xs text-zinc-400">
+        <p class="mt-4 text-center text-xs text-zinc-400" data-i18n="hint">
           Usa ← → o desliza. Pulsa ESC o desliza ↓ para cerrar.
         </p>
 
@@ -182,7 +189,75 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
 
 <script is:inline>
   (() => {
+    // --- Lightbox i18n (ES/EN) ---------------------------------------------
+    const getLang = () => {
+      const l = (document.documentElement.getAttribute("lang") || "es").toLowerCase();
+      return l.startsWith("en") ? "en" : "es";
+    };
+
+    const LB_TEXT = {
+      es: {
+        openImage: "Abrir imagen",
+        closeLabel: "Cerrar",
+        closeText: "Cerrar ✕",
+        prevLabel: "Anterior",
+        nextLabel: "Siguiente",
+        loading: "Cargando…",
+        error: "No se pudo cargar la imagen.",
+        retry: "Reintentar",
+        hint: "Usa ← → o desliza. Pulsa ESC o desliza ↓ para cerrar.",
+      },
+      en: {
+        openImage: "Open image",
+        closeLabel: "Close",
+        closeText: "Close ✕",
+        prevLabel: "Previous",
+        nextLabel: "Next",
+        loading: "Loading…",
+        error: "Couldn’t load the image.",
+        retry: "Retry",
+        hint: "Use ← → or swipe. Press ESC or swipe ↓ to close.",
+      },
+    };
+
+    const applyLightboxI18n = (scope) => {
+      const lang = getLang();
+      const t = LB_TEXT[lang];
+
+      // Translate text nodes that have data-i18n="key"
+      scope.querySelectorAll?.("[data-i18n]")?.forEach((el) => {
+        if (!(el instanceof HTMLElement)) return;
+        const key = el.dataset.i18n;
+        if (!key) return;
+        if (t[key] == null) return;
+        el.textContent = t[key];
+      });
+
+      // Translate aria-labels (keep safe even if text is handled above)
+      scope.querySelectorAll?.("[data-i18n='closeLabel']")?.forEach((el) => {
+        if (!(el instanceof HTMLElement)) return;
+        el.setAttribute("aria-label", t.closeLabel);
+      });
+      scope.querySelectorAll?.("[data-i18n='prevLabel']")?.forEach((el) => {
+        if (!(el instanceof HTMLElement)) return;
+        el.setAttribute("aria-label", t.prevLabel);
+      });
+      scope.querySelectorAll?.("[data-i18n='nextLabel']")?.forEach((el) => {
+        if (!(el instanceof HTMLElement)) return;
+        el.setAttribute("aria-label", t.nextLabel);
+      });
+
+      // Grid items aria-label = "Open image: ALT" / "Abrir imagen: ALT"
+      scope.querySelectorAll?.("[data-i18n-open]")?.forEach((btn) => {
+        if (!(btn instanceof HTMLElement)) return;
+        const alt = btn.getAttribute("data-alt") || btn.getAttribute("aria-label") || "";
+        btn.setAttribute("aria-label", `${t.openImage}: ${alt}`);
+      });
+    };
+    // ----------------------------------------------------------------------
+
     document.querySelectorAll("[data-gl-root]").forEach((root) => {
+      if (!(root instanceof HTMLElement)) return;
       if (root.dataset.vigarLightboxInit === "true") return;
       root.dataset.vigarLightboxInit = "true";
 
@@ -192,6 +267,10 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
 
       // ✅ Portal to body (fixes "fixed inside transformed parent" issue)
       if (lb.parentElement !== document.body) document.body.appendChild(lb);
+
+      // ✅ Apply i18n after portal (so it affects the real nodes)
+      applyLightboxI18n(root);
+      applyLightboxI18n(lb);
 
       const img = lb.querySelector("[data-lb-img]");
       const btnPrev = lb.querySelector("[data-lb-prev]");
@@ -521,6 +600,10 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
         gestureArea.addEventListener("touchstart", onTouchStart, { passive: true });
         gestureArea.addEventListener("touchend", onTouchEnd, { passive: true });
       }
+
+      // ✅ If language changes dynamically (rare), you can re-apply:
+      // applyLightboxI18n(root); applyLightboxI18n(lb);
     });
   })();
 </script>
+
