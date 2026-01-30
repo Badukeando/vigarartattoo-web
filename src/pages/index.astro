@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import GalleryLightbox from "../components/GalleryLightbox.astro";
 import { featuredItems } from "../data/portfolio";
 import { reviews, googleMapsReviewsUrl } from "../data/reviews.es";
+import { studioItems } from "../data/studio";
 
 const whatsappLink = "https://wa.me/34600254338";
 const instagramLink = "https://www.instagram.com/vigarartattoo/";
@@ -59,6 +60,14 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
 
             <a
               class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+              href="#estudio"
+              data-section-link="estudio"
+            >
+              Estudio
+            </a>
+
+            <a
+              class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
               href="#sobre"
               data-section-link="sobre"
             >
@@ -78,7 +87,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
               href="/works"
             >
-              Trabajos →
+              Trabajos
             </a>
           </nav>
 
@@ -95,7 +104,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href="/en/">EN</a
             >
           </div>
-          
+
           <a
             class="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-zinc-200"
             href={whatsappLink}
@@ -137,9 +146,10 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
       <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
         <a class="hover:text-white" href="#portfolio">Portfolio</a>
         <a class="hover:text-white" href="#estilos">Estilos</a>
+        <a class="hover:text-white" href="#estudio">Estudio</a>
         <a class="hover:text-white" href="#sobre">Rocío</a>
         <a class="hover:text-white" href="#contacto">Contacto</a>
-        <a class="hover:text-white" href="/works">Trabajos →</a>
+        <a class="hover:text-white" href="/works">Trabajos</a>
       </nav>
 
       <!-- ✅ Mobile menu button (ONLY < md) -->
@@ -216,6 +226,13 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
             >
               Estilos
             </a>
+            <a
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
+              href="#estudio"
+              data-menu-link
+            >
+              Estudio
+            </a>
 
             <a
               class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
@@ -238,7 +255,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href="/works"
               data-menu-link
             >
-              Trabajos →
+              Trabajos
             </a>
 
             <a
@@ -286,7 +303,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
       >
         <div>
           <p class="text-xs uppercase tracking-[0.35em] text-zinc-200/80">
-            Tatuajes en Málaga
+            Estudio de tatuajes en Málaga
           </p>
 
           <h1
@@ -392,7 +409,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
           href="/works"
           class="inline-flex rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5"
         >
-          Ver todos los trabajos
+          Ver todos los trabajos →
         </a>
       </div>
     </section>
@@ -434,8 +451,33 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
 
       <div class="mt-4">
         <a class="text-sm text-zinc-300 hover:text-white" href="/works">
-          Ver todos los estilos →
+          Ver todo →
         </a>
+      </div>
+    </section>
+
+    <!-- Studio -->
+    <section id="estudio" class="reveal pb-16 pt-10">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-semibold md:text-3xl">El estudio</h2>
+          <p class="mt-2 text-sm text-zinc-400">
+            Un espacio cuidado, cómodo y profesional.
+          </p>
+        </div>
+
+        <a
+          href={mapsLink}
+          target="_blank"
+          rel="noreferrer"
+          class="text-sm text-zinc-300 hover:text-white"
+        >
+          Ver ubicación →
+        </a>
+      </div>
+
+      <div class="mt-8">
+        <GalleryLightbox items={studioItems} galleryId="home-studio" />
       </div>
     </section>
 
@@ -456,14 +498,23 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
           Nací con un lápiz en la mano y dibujar siempre ha sido mi hobby
           favorito. Mi enamoramiento con el mundo del tatuaje fue a primera
           vista: de pequeña siempre llevaba calcomanías y tatuajes temporales
-          por el cuerpo. Estudié en la Escuela de Artes, aunque también he
-          tenido pasión por el deporte y cuento con dos titulaciones de monitora
-          deportiva y nutricionista. Pero el arte siempre ha sido mi motor, y al
-          final me lo jugué todo a una. Tomé la decisión justo después del
-          confinamiento: ¿por qué no dedicarme a lo que me apasiona? Sin duda,
-          es lo mejor que pude hacer. Ahora tengo mi propio estudio en Málaga,
-          aunque me muevo por diferentes ciudades dejando mi huellita de tinta
-          por donde voy.
+          por el cuerpo.
+        </p>
+        <p
+          class="mt-5 max-w-3xl text-sm leading-relaxed text-zinc-300 md:text-base"
+        >
+          Estudié en la Escuela de Artes, aunque también he tenido pasión por el
+          deporte y cuento con dos titulaciones de monitora deportiva y
+          nutricionista. Pero el arte siempre ha sido mi motor, y al final me lo
+          jugué todo a una.
+        </p>
+        <p
+          class="mt-5 max-w-3xl text-sm leading-relaxed text-zinc-300 md:text-base"
+        >
+          Tomé la decisión justo después del confinamiento: ¿por qué no
+          dedicarme a lo que me apasiona? Sin duda, es lo mejor que pude hacer.
+          Ahora tengo mi propio estudio en Málaga, aunque me muevo por
+          diferentes ciudades dejando mi huellita de tinta por donde voy.
         </p>
 
         <h3 class="mt-10 text-lg font-semibold text-white md:text-xl">

@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import GalleryLightbox from "../../components/GalleryLightbox.astro";
 import { featuredItems } from "../../data/portfolio";
 import { reviews, googleMapsReviewsUrl } from "../../data/reviews.en";
+import { studioItems } from "../../data/studio";
 
 const whatsappLink = "https://wa.me/34600254338";
 const instagramLink = "https://www.instagram.com/vigarartattoo/";
@@ -27,7 +28,6 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
   ogImage="/images/heroImg/rocio_001.jpeg"
 >
   <main class="mx-auto max-w-6xl px-4">
-    
     <!-- Sticky header (appears on scroll) -->
     <div
       class="sticky-header pointer-events-none fixed left-0 right-0 top-0 z-[60] hidden"
@@ -59,6 +59,11 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
             >
             <a
               class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+              href="#estudio"
+              data-section-link="estudio">Studio</a
+            >
+            <a
+              class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
               href="#sobre"
               data-section-link="sobre">About</a
             >
@@ -69,7 +74,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
             >
             <a
               class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
-              href="/en/works">Works →</a
+              href="/en/works">Works</a
             >
           </nav>
 
@@ -130,9 +135,10 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
       <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
         <a class="hover:text-white" href="#portfolio">Portfolio</a>
         <a class="hover:text-white" href="#estilos">Styles</a>
+        <a class="hover:text-white" href="#estudio">Studio</a>
         <a class="hover:text-white" href="#sobre">About</a>
         <a class="hover:text-white" href="#contacto">Contact</a>
-        <a class="hover:text-white" href="/en/works">Works →</a>
+        <a class="hover:text-white" href="/en/works">Works</a>
       </nav>
 
       <!-- ✅ Mobile menu button (ONLY < md) -->
@@ -202,6 +208,12 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
               href="#estilos"
               data-menu-link>Styles</a
             >
+            <a
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
+              href="#estudio"
+              data-menu-link
+              >Studio
+            </a>
             <a
               class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
               href="#sobre"
@@ -281,7 +293,7 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
           <h1
             class="mt-4 text-4xl font-semibold leading-tight text-white md:text-6xl"
           >
-            Skin art with detail, precision and style.
+            Art on skin, with detail, precision and skill.
           </h1>
 
           <p class="mt-6 text-base text-zinc-200 md:text-lg">
@@ -400,12 +412,12 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
             },
             {
               t: "Blackwork",
-              d: "Bold black ink, contrast and strong pieces.",
+              d: "Bold blank ink, strong contrast and powerfull pieces.",
               href: "/en/works#blackwork",
             },
             {
               t: "Color",
-              d: "Vibrant pieces with contrast and detail.",
+              d: "Vibrant pieces with live details.",
               href: "/en/works#color",
             },
           ].map((s) => (
@@ -428,6 +440,31 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
       </div>
     </section>
 
+    <!-- STUDIO -->
+    <section id="estudio" class="reveal pb-16 pt-10">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-semibold md:text-3xl">The studio</h2>
+          <p class="mt-2 text-sm text-zinc-400">
+            A clean, comfortable and professional space.
+          </p>
+        </div>
+
+        <a
+          href={mapsLink}
+          target="_blank"
+          rel="noreferrer"
+          class="text-sm text-zinc-300 hover:text-white"
+        >
+          View location →
+        </a>
+      </div>
+
+      <div class="mt-8">
+        <GalleryLightbox items={studioItems} galleryId="home-studio" />
+      </div>
+    </section>
+
     <!-- About -->
     <section id="sobre" class="reveal pb-16 pt-10">
       <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
@@ -444,14 +481,22 @@ const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
         >
           I’ve always had a pencil in my hand—drawing has been my favorite hobby
           for as long as I can remember. Falling in love with tattooing happened
-          instantly: as a kid I was always covered in temporary tattoos. I
-          studied at Art School, and I’ve also been passionate about sports,
-          earning two certifications as a sports instructor and nutritionist.
-          But art has always been my driving force, and in the end I went all
-          in. Right after the lockdown I made the decision: why not dedicate
-          myself to what truly excites me? It’s the best choice I could have
-          made. Today I have my own studio in Málaga, and I also travel to
-          different cities, leaving a small ink “signature” wherever I go.
+          instantly: as a kid I was always covered in temporary tattoos.
+        </p>
+        <p
+          class="mt-5 max-w-3xl text-sm leading-relaxed text-zinc-300 md:text-base"
+        >
+          I studied at Art School, and I’ve also been passionate about sports,
+          earning two certificates as a sports instructor and nutritionist. But
+          art has always been my driving force, and in the end I went all in.
+        </p>
+        <p
+          class="mt-5 max-w-3xl text-sm leading-relaxed text-zinc-300 md:text-base"
+        >
+          Right after the lockdown I made the decision: why not dedicate myself
+          to what truly excites me? It’s the best choice I could have made.
+          Today I have my own studio in Málaga, and I also travel to different
+          cities, leaving a small ink “signature” wherever I go.
         </p>
 
         <h3 class="mt-10 text-lg font-semibold text-white md:text-xl">

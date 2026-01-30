@@ -9,7 +9,7 @@ const MAX = 800; // thumb size (px). 600–900 suele ir bien para grid.
 const QUALITY_WEBP = 72;
 const QUALITY_AVIF = 45; // AVIF suele verse muy bien con 35–55
 
-const categories = ["featured", "fine-line", "blackwork", "color", "varios"];
+const categories = ["featured", "fine-line", "blackwork", "color", "Studio", "varios"];
 
 async function exists(p) {
   try { await fs.access(p); return true; } catch { return false; }
