@@ -6,7 +6,7 @@ import "../styles/global.css";
  * Pages can override title/description/ogImage if needed.
  */
 const {
-  title = "Tatuajes en Málaga | Vigar Art Tattoo",
+  title = "Tatuajes en Málaga | Vigarartattoo",
   description = "Estudio de tatuajes en Málaga. Fine line, blackwork y diseños personalizados.",
   ogImage = "/images/heroImg/rocio_001.jpeg",
   lang = "es", // "es" | "en"
@@ -14,21 +14,28 @@ const {
 
 const SITE_URL = "https://vigarartattoo.com";
 
-// Current path ("/", "/en/", "/contacto", etc.)
+// Current path ("/", "/en/", "/works", etc.)
 const pathname = Astro.url.pathname;
 
 // Canonical always on the .com + current path
 const canonical = `${SITE_URL}${pathname}`;
 
 // hreflang alternates based on current path
-const esPath = lang === "en" ? pathname.replace(/^\/en(\/|$)/, "/") : pathname;
+const esPath =
+  lang === "en"
+    ? pathname.replace(/^\/en(\/|$)/, "/")
+    : pathname;
+
 const enPath =
   lang === "en"
     ? pathname
-    : `/en${pathname}`.replace(/^\/en\/en(\/|$)/, "/en/");
+    : `/en${pathname}`;
+
+// Normalize: avoid "/en/en/..." if someone passes wrong lang/path
+const enPathNormalized = enPath.replace(/^\/en\/en(\/|$)/, "/en/");
 
 const alternateEs = `${SITE_URL}${esPath}`;
-const alternateEn = `${SITE_URL}${enPath}`;
+const alternateEn = `${SITE_URL}${enPathNormalized}`;
 
 // Absolute OG image (recommended for social previews)
 const ogImageAbs = ogImage.startsWith("http")
@@ -82,7 +89,7 @@ const siteUrl = canonical.endsWith("/") ? canonical.slice(0, -1) : canonical;
       set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@type": "TattooStudio",
-        name: "Vigar Art Tattoo",
+        name: "Vigarartattoo",
         url: siteUrl,
         image: `${siteUrl}/images/heroImg/rocio_001.jpeg`,
         address: {
