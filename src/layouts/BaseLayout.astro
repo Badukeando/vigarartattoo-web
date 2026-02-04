@@ -3,22 +3,42 @@ import "../styles/global.css";
 
 /**
  * SEO + Social defaults (multi-language).
- * Pass props from each page to customize metadata per route.
+ * Pages can override title/description/ogImage if needed.
  */
 const {
-  title = "Vigarartattoo",
-  description = "Tattoo studio in Málaga. Fine line, blackwork and custom designs.",
-  canonical = "https://vigarartattoo.pages.dev/",
+  title = "Tatuajes en Málaga | Vigar Art Tattoo",
+  description = "Estudio de tatuajes en Málaga. Fine line, blackwork y diseños personalizados.",
   ogImage = "/images/heroImg/rocio_001.jpeg",
-
-  // i18n
-  lang = "es",               // "es" | "en"
-  alternateEs = "https://vigarartattoo.pages.dev/",
-  alternateEn = "https://vigarartattoo.pages.dev/en/",
+  lang = "es", // "es" | "en"
 } = Astro.props;
 
-const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
+const SITE_URL = "https://vigarartattoo.com";
+
+// Current path ("/", "/en/", "/contacto", etc.)
+const pathname = Astro.url.pathname;
+
+// Canonical always on the .com + current path
+const canonical = `${SITE_URL}${pathname}`;
+
+// hreflang alternates based on current path
+const esPath = lang === "en" ? pathname.replace(/^\/en(\/|$)/, "/") : pathname;
+const enPath =
+  lang === "en"
+    ? pathname
+    : `/en${pathname}`.replace(/^\/en\/en(\/|$)/, "/en/");
+
+const alternateEs = `${SITE_URL}${esPath}`;
+const alternateEn = `${SITE_URL}${enPath}`;
+
+// Absolute OG image (recommended for social previews)
+const ogImageAbs = ogImage.startsWith("http")
+  ? ogImage
+  : `${SITE_URL}${ogImage}`;
+
+// Used for schema url (without trailing slash)
+const siteUrl = canonical.endsWith("/") ? canonical.slice(0, -1) : canonical;
 ---
+
 <!doctype html>
 <html lang={lang}>
   <head>
@@ -34,7 +54,10 @@ const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
     <link rel="alternate" href={alternateEn} hreflang="en" />
     <link rel="alternate" href={alternateEs} hreflang="x-default" />
 
-    <meta name="robots" content="index,follow" />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -50,25 +73,29 @@ const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
     <meta name="twitter:image" content={ogImage} />
   </head>
 
-
   <body class="min-h-screen bg-zinc-950 text-zinc-100">
     <slot />
 
     <!-- Local business structured data -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "TattooParlor",
-      "name": "Vigarartattoo",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Málaga",
-        "addressCountry": "ES"
-      },
-      "url": siteUrl,
-      "sameAs": [
-        "https://www.instagram.com/vigarartattoo/"
-      ]
-    })} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "TattooStudio",
+        name: "Vigar Art Tattoo",
+        url: siteUrl,
+        image: `${siteUrl}/images/heroImg/rocio_001.jpeg`,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Málaga",
+          addressRegion: "Andalucía",
+          addressCountry: "ES",
+        },
+        areaServed: "Málaga",
+        priceRange: "€€",
+        sameAs: ["https://www.instagram.com/vigarartattoo/"],
+      })}
+    />
 
     <!-- Enable JS-only CSS rules -->
     <script>
@@ -94,7 +121,7 @@ const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
               });
             });
           },
-          { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+          { threshold: 0.12, rootMargin: "0px 0px -10% 0px" },
         );
 
         elements.forEach((el) => observer.observe(el));
@@ -104,7 +131,8 @@ const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
     <!-- Stagger items -->
     <script>
       window.addEventListener("DOMContentLoaded", () => {
-        if (document.documentElement.dataset.vigarStaggerInit === "true") return;
+        if (document.documentElement.dataset.vigarStaggerInit === "true")
+          return;
         document.documentElement.dataset.vigarStaggerInit = "true";
 
         const items = Array.from(document.querySelectorAll(".reveal-item"));
@@ -117,7 +145,7 @@ const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
 
               if (entry.isIntersecting) {
                 const siblings = Array.from(
-                  el.parentElement?.querySelectorAll(".reveal-item") ?? []
+                  el.parentElement?.querySelectorAll(".reveal-item") ?? [],
                 );
                 const index = siblings.indexOf(el);
                 el.style.transitionDelay = `${Math.min(index * 70, 500)}ms`;
@@ -128,7 +156,7 @@ const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
               }
             });
           },
-          { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+          { threshold: 0.12, rootMargin: "0px 0px -10% 0px" },
         );
 
         items.forEach((el) => obs.observe(el));
@@ -181,7 +209,11 @@ const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
         const closeBtns = document.querySelectorAll("[data-menu-close]");
         const links = document.querySelectorAll("[data-menu-link]");
 
-        if (!(overlay instanceof HTMLElement) || !(openBtn instanceof HTMLElement)) return;
+        if (
+          !(overlay instanceof HTMLElement) ||
+          !(openBtn instanceof HTMLElement)
+        )
+          return;
         if (overlay.dataset.vigarMenuInit === "true") return;
         overlay.dataset.vigarMenuInit = "true";
 
@@ -256,7 +288,8 @@ const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
     <!-- Hide any UI marked with data-hide-on-lightbox -->
     <script>
       window.addEventListener("DOMContentLoaded", () => {
-        if (document.documentElement.dataset.vigarHideOnLightboxInit === "true") return;
+        if (document.documentElement.dataset.vigarHideOnLightboxInit === "true")
+          return;
         document.documentElement.dataset.vigarHideOnLightboxInit = "true";
 
         const update = () => {
@@ -303,7 +336,8 @@ const siteUrl = canonical?.endsWith("/") ? canonical.slice(0, -1) : canonical;
         const update = () => {
           ticking = false;
 
-          const lightboxOpen = document.documentElement.dataset.lightboxOpen === "true";
+          const lightboxOpen =
+            document.documentElement.dataset.lightboxOpen === "true";
           if (lightboxOpen) {
             btn.classList.add("hidden");
             return;

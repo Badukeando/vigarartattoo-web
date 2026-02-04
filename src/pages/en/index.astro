@@ -11,10 +11,6 @@ const whatsappLink = "https://wa.me/34600254338";
 const instagramLink = "https://www.instagram.com/vigarartattoo/";
 const mapsLink = "https://maps.app.goo.gl/aDDJfWMDJhcXpEHE7";
 
-// SEO
-const canonical = "https://vigarartattoo.pages.dev/en/";
-const description =
-  "Tattoo studio in Málaga by Rocío. Fine line, blackwork and color tattoos with a careful, personal approach.";
 
 // Put your chosen hero photo in /public/images/hero/ and set the path here:
 const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
@@ -23,16 +19,12 @@ const featuredItemsEs = featuredItems.map((x) => ({
   ...x,
   alt: getPortfolioAlt(x, "en"),
 }));
-
 ---
 
 <BaseLayout
   lang="en"
-  title="Vigarartattoo | Tattoo Studio in Málaga"
-  description={description}
-  canonical={canonical}
-  alternateEs="https://vigarartattoo.pages.dev/"
-  alternateEn="https://vigarartattoo.pages.dev/en/"
+  title="Tattoo Studio in Málaga | Vigarartattoo"
+  description="Tattoo studio in Málaga by Rocío. Fine line, blackwork and color tattoos with a personal approach. Book via Instagram or WhatsApp."
   ogImage="/images/heroImg/rocio_001.jpeg"
 >
   <main class="mx-auto max-w-6xl px-4">
@@ -449,31 +441,29 @@ const featuredItemsEs = featuredItems.map((x) => ({
     </section>
 
     <!-- Studio -->
-<section id="estudio" class="reveal pb-16 pt-10">
-  <div class="flex items-end justify-between gap-6">
-    <div>
-      <h2 class="text-2xl font-semibold md:text-3xl">
-        The studio
-      </h2>
-      <p class="mt-2 text-sm text-zinc-400">
-        A clean, comfortable, and professional space.
-      </p>
-    </div>
+    <section id="estudio" class="reveal pb-16 pt-10">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-semibold md:text-3xl">The studio</h2>
+          <p class="mt-2 text-sm text-zinc-400">
+            A clean, comfortable, and professional space.
+          </p>
+        </div>
 
-    <a
-      href={mapsLink}
-      target="_blank"
-      rel="noreferrer"
-      class="text-sm text-zinc-300 hover:text-white"
-    >
-      See location →
-    </a>
-  </div>
+        <a
+          href={mapsLink}
+          target="_blank"
+          rel="noreferrer"
+          class="text-sm text-zinc-300 hover:text-white"
+        >
+          See location →
+        </a>
+      </div>
 
-  <div class="mt-8">
-    <GalleryLightbox items={studioItems} galleryId="home-studio" />
-  </div>
-</section>
+      <div class="mt-8">
+        <GalleryLightbox items={studioItems} galleryId="home-studio" />
+      </div>
+    </section>
 
     <!-- About -->
     <section id="sobre" class="reveal pb-16 pt-10">
