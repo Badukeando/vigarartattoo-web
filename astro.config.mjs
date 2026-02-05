@@ -5,10 +5,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://vigarartattoo.com",
-
+  output: "static",
   integrations: [sitemap()],
-
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  vite: { plugins: [tailwindcss()] },
 });
+
