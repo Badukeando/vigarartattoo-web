@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vigarartattoo.pages.dev/sitemap-index.xml
+Sitemap: https://vigarartattoo.com/sitemap-index.xml
