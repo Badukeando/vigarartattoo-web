@@ -21,15 +21,9 @@ const pathname = Astro.url.pathname;
 const canonical = `${SITE_URL}${pathname}`;
 
 // hreflang alternates based on current path
-const esPath =
-  lang === "en"
-    ? pathname.replace(/^\/en(\/|$)/, "/")
-    : pathname;
+const esPath = lang === "en" ? pathname.replace(/^\/en(\/|$)/, "/") : pathname;
 
-const enPath =
-  lang === "en"
-    ? pathname
-    : `/en${pathname}`;
+const enPath = lang === "en" ? pathname : `/en${pathname}`;
 
 // Normalize: avoid "/en/en/..." if someone passes wrong lang/path
 const enPathNormalized = enPath.replace(/^\/en\/en(\/|$)/, "/en/");
@@ -378,6 +372,23 @@ const siteUrl = canonical.endsWith("/") ? canonical.slice(0, -1) : canonical;
     <script type="module">
       import { initActiveSectionHighlight } from "../scripts/activeSectionHighlight";
       window.addEventListener("DOMContentLoaded", initActiveSectionHighlight);
+    </script>
+
+    <script>
+      const path = window.location.pathname;
+
+      const esLink = document.querySelector('a[href="/"]');
+      const enLink = document.querySelector('a[href="/en/"]');
+
+      if (path.startsWith("/en")) {
+        enLink?.setAttribute("aria-current", "page");
+        enLink?.classList.add("bg-white/10", "text-white");
+        esLink?.classList.remove("bg-white/10", "text-white");
+      } else {
+        esLink?.setAttribute("aria-current", "page");
+        esLink?.classList.add("bg-white/10", "text-white");
+        enLink?.classList.remove("bg-white/10", "text-white");
+      }
     </script>
   </body>
 </html>

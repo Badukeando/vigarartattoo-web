@@ -7,6 +7,7 @@ import {
   colorItems,
   fineLineItems,
   variosItems,
+  petsItems,
   getPortfolioAlt,
 } from "../data/portfolio";
 
@@ -30,6 +31,11 @@ const categories = [
     desc: "Piezas vibrantes con contraste y detalle.",
   },
   {
+    key: "pets",
+    title: "Mascotas",
+    desc: "Trabajos de mascotas.",
+  },
+  {
     key: "varios",
     title: "Varios",
     desc: "Trabajos mixtos y estilos combinados.",
@@ -43,6 +49,7 @@ const curatedByCategory = {
   blackwork: blackworkItems,
   color: colorItems,
   "fine-line": fineLineItems,
+  pets: petsItems,
   varios: variosItems,
 } as const;
 ---
@@ -90,6 +97,11 @@ const curatedByCategory = {
             >
             <a
               class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+              href="#pets"
+              data-section-link="pets">Mascotas</a
+            >
+            <a
+              class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
               href="#varios"
               data-section-link="varios">Varios</a
             >
@@ -98,15 +110,17 @@ const curatedByCategory = {
           <!-- Right side: language (md+) + CTA -->
           <div class="flex items-center gap-2">
             <!-- ✅ Language switcher (md+ only, so it also shows on iPad) -->
-            <div class="hidden md:flex items-center gap-2 text-xs text-zinc-300">
+            <div
+              class="hidden md:flex items-center gap-2 text-xs text-zinc-300"
+            >
               <a
-                class="rounded-full border border-white/10 px-2.5 py-1 bg-white/10 text-white"
-                href="/works"
-                aria-current="page">ES</a
+                class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+                href="/">ES</a
               >
+
               <a
-                class="rounded-full border border-white/10 px-2.5 py-1 hover:bg-white/5"
-                href="/en/works">EN</a
+                class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+                href="/en/">EN</a
               >
             </div>
 
@@ -125,7 +139,7 @@ const curatedByCategory = {
 
     <!-- NAV -->
     <header class="relative flex items-center justify-between py-6">
-      <a href="/works" class="text-lg font-semibold tracking-wide">
+      <a href="/" class="text-lg font-semibold tracking-wide">
         Vigarartattoo
       </a>
 
@@ -134,18 +148,14 @@ const curatedByCategory = {
         class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-zinc-300"
       >
         <a
-          class="rounded-full border border-white/10 px-2.5 py-1 bg-white/10 text-white"
-          href="/works"
-          aria-current="page"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/">ES</a
         >
-          ES
-        </a>
+
         <a
-          class="rounded-full border border-white/10 px-2.5 py-1 hover:bg-white/5"
-          href="/en/works"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/en/">EN</a
         >
-          EN
-        </a>
       </div>
 
       <!-- ✅ Top nav (tablet + desktop = md+) -->
@@ -170,6 +180,11 @@ const curatedByCategory = {
         >
         <a
           class="nav-pill hover:text-white"
+          href="#pets"
+          data-section-link="pets">Mascotas</a
+        >
+        <a
+          class="nav-pill hover:text-white"
           href="#varios"
           data-section-link="varios">Varios</a
         >
@@ -190,18 +205,14 @@ const curatedByCategory = {
       <!-- ✅ Language switcher (tablet + desktop = md+) -->
       <div class="hidden items-center gap-2 text-sm text-zinc-300 md:flex">
         <a
-          class="rounded-full border border-white/10 px-3 py-1 bg-white/10 text-white"
-          href="/works"
-          aria-current="page"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/">ES</a
         >
-          ES
-        </a>
+
         <a
           class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
-          href="/en/works"
+          href="/en/">EN</a
         >
-          EN
-        </a>
       </div>
 
       <!-- ✅ Mobile overlay (ONLY mobile) -->
@@ -235,8 +246,8 @@ const curatedByCategory = {
             <a class="menu-link" href="#fine-line" data-menu-link>Fine line</a>
             <a class="menu-link" href="#blackwork" data-menu-link>Blackwork</a>
             <a class="menu-link" href="#color" data-menu-link>Color</a>
+            <a class="menu-link" href="#pets" data-menu-link>Mascotas</a>
             <a class="menu-link" href="#varios" data-menu-link>Varios</a>
-
             <a
               class="mt-3 rounded-2xl bg-white px-4 py-3 text-center font-semibold text-zinc-950 hover:bg-zinc-200"
               href={whatsappLink}
@@ -302,14 +313,14 @@ const curatedByCategory = {
       {
         categories.map((c) => {
           const sourceItems =
-            curatedByCategory[c.key] ?? (portfolioByCategory[c.key] ?? []);
+            curatedByCategory[c.key] ?? portfolioByCategory[c.key] ?? [];
 
           const items = sourceItems.map((i) => ({
             ...i,
             alt: getPortfolioAlt(i, lang),
-          }))
+          }));
 
-          const galleryId = `works-${c.key}`
+          const galleryId = `works-${c.key}`;
 
           return (
             <section id={c.key} class="scroll-mt-32 reveal">
@@ -320,7 +331,7 @@ const curatedByCategory = {
 
               <GalleryLightbox items={items} galleryId={galleryId} />
             </section>
-          )
+          );
         })
       }
     </div>

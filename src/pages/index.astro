@@ -5,6 +5,12 @@ import { featuredItems, getPortfolioAlt } from "../data/portfolio";
 import { reviews, googleMapsReviewsUrl } from "../data/reviews.es";
 import { getStudioItems } from "../data/studio";
 
+const pathname = Astro.url.pathname;
+const isEn = pathname === "/en" || pathname.startsWith("/en/");
+const baseLangPill =
+  "rounded-full border border-white/10 px-3 py-1 hover:bg-white/5";
+const activeLangPill = "bg-white/10 text-white";
+
 const lang = "es";
 const studioItems = getStudioItems(lang);
 
@@ -19,7 +25,6 @@ const featuredItemsEs = featuredItems.map((x) => ({
   ...x,
   alt: getPortfolioAlt(x, "es"),
 }));
-
 ---
 
 <BaseLayout
@@ -97,19 +102,17 @@ const featuredItemsEs = featuredItems.map((x) => ({
             </a>
           </nav>
 
-          <div
-            class="hidden items-center gap-2 text-sm text-zinc-200 md:flex text-glass"
+          <a
+            class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`}
+            href="/"
+            aria-current={!isEn ? "page" : undefined}>ES</a
           >
-            <a
-              class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
-              href="/"
-              aria-current="page">ES</a
-            >
-            <a
-              class="rounded-full border border-white/10 px-3 py-1 bg-white/10 text-white"
-              href="/en/">EN</a
-            >
-          </div>
+
+          <a
+            class={`${baseLangPill} ${isEn ? activeLangPill : ""}`}
+            href="/en/"
+            aria-current={isEn ? "page" : undefined}>EN</a
+          >
 
           <a
             class="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-zinc-200"
@@ -134,18 +137,14 @@ const featuredItemsEs = featuredItems.map((x) => ({
         class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-zinc-300"
       >
         <a
-          class="rounded-full border border-white/10 px-2.5 py-1 bg-white/10 text-white"
-          href="/"
-          aria-current="page"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/">ES</a
         >
-          ES
-        </a>
+
         <a
-          class="rounded-full border border-white/10 px-2.5 py-1 hover:bg-white/5"
-          href="/en/"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/en/">EN</a
         >
-          EN
-        </a>
       </div>
 
       <!-- ✅ Top nav (tablet + desktop = md+) -->
@@ -173,18 +172,14 @@ const featuredItemsEs = featuredItems.map((x) => ({
       <!-- ✅ Language switcher (tablet + desktop = md+) -->
       <div class="hidden items-center gap-2 text-sm text-zinc-300 md:flex">
         <a
-          class="rounded-full border border-white/10 px-3 py-1 bg-white/10 text-white"
-          href="/"
-          aria-current="page"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/">ES</a
         >
-          ES
-        </a>
+
         <a
           class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
-          href="/en/"
+          href="/en/">EN</a
         >
-          EN
-        </a>
       </div>
 
       <!-- ✅ Mobile overlay (ONLY used on mobile) -->
@@ -424,7 +419,7 @@ const featuredItemsEs = featuredItems.map((x) => ({
     <section id="estilos" class="reveal pb-16 pt-10">
       <h2 class="text-2xl font-semibold md:text-3xl">Estilos</h2>
 
-      <div class="mt-8 grid gap-4 md:grid-cols-3">
+      <div class="mt-8 grid gap-4 md:grid-cols-4">
         {
           [
             {
@@ -436,6 +431,11 @@ const featuredItemsEs = featuredItems.map((x) => ({
               t: "Blackwork",
               d: "Negro sólido, contraste y piezas potentes.",
               href: "/works#blackwork",
+            },
+            {
+              t: "Mascotas",
+              d: "Tatuajes de mascotas.",
+              href: "/works#pets",
             },
             {
               t: "Color",
@@ -463,31 +463,29 @@ const featuredItemsEs = featuredItems.map((x) => ({
     </section>
 
     <!-- Studio -->
-<section id="estudio" class="reveal pb-16 pt-10">
-  <div class="flex items-end justify-between gap-6">
-    <div>
-      <h2 class="text-2xl font-semibold md:text-3xl">
-        El estudio
-      </h2>
-      <p class="mt-2 text-sm text-zinc-400">
-        Un espacio cuidado, cómodo y profesional.
-      </p>
-    </div>
+    <section id="estudio" class="reveal pb-16 pt-10">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-semibold md:text-3xl">El estudio</h2>
+          <p class="mt-2 text-sm text-zinc-400">
+            Un espacio cuidado, cómodo y profesional.
+          </p>
+        </div>
 
-    <a
-      href={mapsLink}
-      target="_blank"
-      rel="noreferrer"
-      class="text-sm text-zinc-300 hover:text-white"
-    >
-      Ver ubicación →
-    </a>
-  </div>
+        <a
+          href={mapsLink}
+          target="_blank"
+          rel="noreferrer"
+          class="text-sm text-zinc-300 hover:text-white"
+        >
+          Ver ubicación →
+        </a>
+      </div>
 
-  <div class="mt-8">
-    <GalleryLightbox items={studioItems} galleryId="home-studio" />
-  </div>
-</section>
+      <div class="mt-8">
+        <GalleryLightbox items={studioItems} galleryId="home-studio" />
+      </div>
+    </section>
 
     <!-- About -->
     <section id="sobre" class="reveal pb-16 pt-10">

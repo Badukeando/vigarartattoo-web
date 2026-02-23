@@ -3,7 +3,8 @@ export type PortfolioCategory =
   | "color"
   | "fine-line"
   | "varios"
-  | "featured";
+  | "featured"
+  | "pets";
 
 export type Lang = "es" | "en";
 
@@ -32,7 +33,7 @@ export type PortfolioItem = {
 
 type BuildRangeOptions = {
   category: Exclude<PortfolioCategory, "featured">;
-  prefix: "bw" | "co" | "fl" | "va";
+  prefix: "bw" | "co" | "fl" | "va" | "pe";
   from: number;
   to: number;
   ext?: "jpeg" | "jpg" | "png";
@@ -78,6 +79,11 @@ function defaultAltBase(
       return {
         es: "Tatuaje de línea fina (fine line)",
         en: "Fine line tattoo",
+      };
+    case "pets":
+      return {
+        es: "Tatuaje de mascota personalizado",
+        en: "Custom pet tattoo",
       };
     case "varios":
     default:
@@ -168,6 +174,21 @@ function fineLine(id: string, alt: I18nText): PortfolioItem {
   const category: PortfolioCategory = "fine-line";
   const fullSrc = `/images/portfolio/fine-line/${id}.jpeg`;
   const thumbSrc = toThumbSrc(fullSrc, "fine-line");
+
+  return {
+    id,
+    category,
+    fullSrc,
+    thumbSrc,
+    src: fullSrc, // backward compatibility
+    alt,
+  };
+}
+
+function pets(id: string, alt: I18nText): PortfolioItem {
+  const category: PortfolioCategory = "pets";
+  const fullSrc = `/images/portfolio/pets/${id}.jpeg`;
+  const thumbSrc = toThumbSrc(fullSrc, "pets");
 
   return {
     id,
@@ -687,7 +708,6 @@ export const fineLineItems: PortfolioItem[] = [
   }),
 ];
 
-
 export const variosItems: PortfolioItem[] = [
   varios("va_001", {
     es: "Retrato realista de un perro en tinta negra y sombras suaves, acompañado de una pequeña constelación y flores lineales en el antebrazo.",
@@ -775,6 +795,64 @@ export const variosItems: PortfolioItem[] = [
   }),
 ];
 
+export const petsItems: PortfolioItem[] = [
+  pets("pt_001", {
+    es: "Retrato realista de golden retriever en black and grey, enmarcado por un arco de estrellas y margaritas, con el nombre “Bimba” en lettering.",
+    en: "Black and grey realistic golden retriever portrait framed by a star arc and daisies, with “Bimba” lettering.",
+  }),
+  pets("pt_002", {
+    es: "Micro retrato realista de perro tipo chihuahua en black and grey, con la cabeza ligeramente ladeada y sombreado suave.",
+    en: "Small black and grey realistic chihuahua-like dog portrait with a slight head tilt and soft shading.",
+  }),
+  pets("pt_003", {
+    es: "Retrato a color de perro negro sosteniendo un juguete rojo en la boca, con marco circular de línea fina y foto de referencia incluida.",
+    en: "Color dog portrait holding a red toy in its mouth, with a fine line circular frame and the reference photo included.",
+  }),
+  pets("pt_004", {
+    es: "Yorkshire terrier realista en black and grey asomando desde un marco triangular, con las patitas apoyadas y referencia de foto.",
+    en: "Black and grey realistic Yorkshire terrier peeking from a triangular frame, paws resting on the edge, with photo reference.",
+  }),
+  pets("pt_005", {
+    es: "Tatuaje realista dividido en dos mitades: dos retratos de perro separados por una línea vertical, estilo black and grey.",
+    en: "Split realistic tattoo: two dog portraits divided by a vertical line, in black and grey style.",
+  }),
+  pets("pt_006", {
+    es: "Composición memorial: silueta en línea fina de una persona junto a un perro realista en black and grey, con foto de referencia.",
+    en: "Memorial composition: fine line outline of a person next to a realistic black and grey dog, with reference photo.",
+  }),
+  pets("pt_007", {
+    es: "Retrato a color de perro de orejas puntiagudas con la lengua fuera, estilo realismo y sombreado suave.",
+    en: "Realistic color portrait of a pointy-eared dog with its tongue out, with soft shading.",
+  }),
+  pets("pt_008", {
+    es: "Retrato a color de perro con efecto fragmentado tipo collage, y pulsera floral en línea fina con mariposa e iniciales.",
+    en: "Color dog portrait with a fragmented collage effect, plus a fine line floral bracelet with a butterfly and initials.",
+  }),
+  pets("pt_009", {
+    es: "Retrato realista en black and grey de perro de pelo rizado con gran detalle de textura y volumen en el pelaje.",
+    en: "Black and grey realistic curly-haired dog portrait with highly detailed fur texture and volume.",
+  }),
+  pets("pt_010", {
+    es: "Retrato frontal realista en black and grey de perro de pelo rizado, con ojos definidos y nariz con matiz rosado.",
+    en: "Front-facing black and grey realistic curly-haired dog portrait, with defined eyes and a slightly pink-toned nose.",
+  }),
+  pets("pt_011", {
+    es: "Doble retrato en black and grey: perro de pelo largo y cobaya enmarcados en rectángulos minimalistas, con fotos de referencia.",
+    en: "Double black and grey portrait: a long-haired dog and a guinea pig framed in minimal rectangles, with reference photos.",
+  }),
+  pets("pt_012", {
+    es: "Micro retrato realista de gato en black and grey con ojos verdes, mostrado a escala con la mano.",
+    en: "Small black and grey realistic cat portrait with green eyes, shown with hand scale.",
+  }),
+  pets("pt_013", {
+    es: "Retrato a color de perro de pelo rizado dentro de un óvalo, decorado con flores rosas y detalles finos.",
+    en: "Color curly-haired dog portrait inside an oval, decorated with pink flowers and fine details.",
+  }),
+  pets("pt_014", {
+    es: "Retrato a color de perro con el nombre “Ohana” en lettering y una luna creciente, con foto de referencia incluida.",
+    en: "Color dog portrait with “Ohana” lettering and a crescent moon, with the reference photo included.",
+  }),
+];
 
 /** Full catalog (non-featured, generated). */
 export const portfolioItems: PortfolioItem[] = [
@@ -806,6 +884,13 @@ export const portfolioItems: PortfolioItem[] = [
     to: 21,
     ext: "jpeg",
   }),
+    ...buildRange({
+    category: "pets",
+    prefix: "pe",
+    from: 1,
+    to: 14,
+    ext: "jpeg",
+  }),
 ];
 
 /** Convenience grouping (generated fallbacks). */
@@ -817,6 +902,7 @@ export const portfolioByCategory: Record<
   color: portfolioItems.filter((x) => x.category === "color"),
   "fine-line": portfolioItems.filter((x) => x.category === "fine-line"),
   varios: portfolioItems.filter((x) => x.category === "varios"),
+  pets: portfolioItems.filter((x) => x.category === "pets"),
 };
 
 /** Single list including all curated items (preferred for search, etc.). */
@@ -825,5 +911,6 @@ export const allPortfolioItems: PortfolioItem[] = [
   ...blackworkItems,
   ...colorItems,
   ...fineLineItems,
+  ...petsItems,
   ...variosItems,
 ];

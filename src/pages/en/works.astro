@@ -6,6 +6,7 @@ import {
   blackworkItems,
   colorItems,
   fineLineItems,
+  petsItems,
   variosItems,
   getPortfolioAlt,
 } from "../../data/portfolio";
@@ -30,6 +31,11 @@ const categories = [
     desc: "Vibrant pieces with lively details.",
   },
   {
+    key: "pets",
+    title: "Pets",
+    desc: "Pet tattoos.",
+  },
+  {
     key: "varios",
     title: "Mixed",
     desc: "A mix of styles and combined pieces.",
@@ -47,6 +53,7 @@ const curatedByCategory = {
   blackwork: blackworkItems,
   color: colorItems,
   "fine-line": fineLineItems,
+  pets: petsItems,
   varios: variosItems,
 } as const;
 ---
@@ -93,6 +100,11 @@ const curatedByCategory = {
             >
             <a
               class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+              href="#pets"
+              data-section-link="pets">Pets</a
+            >
+            <a
+              class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
               href="#varios"
               data-section-link="varios">Mixed</a
             >
@@ -123,18 +135,14 @@ const curatedByCategory = {
         class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-zinc-300"
       >
         <a
-          class="rounded-full border border-white/10 px-2.5 py-1 hover:bg-white/5"
-          href="/works"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/">ES</a
         >
-          ES
-        </a>
+
         <a
-          class="rounded-full border border-white/10 px-2.5 py-1 bg-white/10 text-white"
-          href="/en/works"
-          aria-current="page"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/en/">EN</a
         >
-          EN
-        </a>
       </div>
 
       <!-- ✅ Top nav (tablet + desktop = md+) -->
@@ -159,6 +167,11 @@ const curatedByCategory = {
         >
         <a
           class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+          href="#pets"
+          data-section-link="pets">Pets</a
+        >
+        <a
+          class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
           href="#varios"
           data-section-link="varios">Mixed</a
         >
@@ -180,17 +193,13 @@ const curatedByCategory = {
       <div class="hidden md:flex items-center gap-2 text-sm text-zinc-300">
         <a
           class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
-          href="/works"
+          href="/">ES</a
         >
-          ES
-        </a>
+
         <a
-          class="rounded-full border border-white/10 px-3 py-1 bg-white/10 text-white"
-          href="/en/works"
-          aria-current="page"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/en/">EN</a
         >
-          EN
-        </a>
       </div>
 
       <!-- ✅ Mobile overlay (ONLY used on mobile) -->
@@ -240,6 +249,11 @@ const curatedByCategory = {
             >
             <a
               class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
+              href="#pets"
+              data-menu-link>Pets</a
+            >
+            <a
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10"
               href="#varios"
               data-menu-link>Mixed</a
             >
@@ -247,13 +261,13 @@ const curatedByCategory = {
             <!-- ✅ Language switcher (mobile menu) -->
             <div class="mt-2 grid grid-cols-2 gap-3">
               <a
-                class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-center hover:bg-white/10"
-                href="/works">ES</a
+                class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+                href="/">ES</a
               >
+
               <a
-                class="rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-center font-semibold text-white"
-                href="/en/works"
-                aria-current="page">EN</a
+                class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+                href="/en/">EN</a
               >
             </div>
 
@@ -322,7 +336,7 @@ const curatedByCategory = {
       {
         categories.map((c) => {
           const sourceItems =
-            curatedByCategory[c.key] ?? (portfolioByCategory[c.key] ?? []);
+            curatedByCategory[c.key] ?? portfolioByCategory[c.key] ?? [];
 
           const items = sourceItems.map((i) => ({
             ...i,

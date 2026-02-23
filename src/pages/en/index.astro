@@ -11,7 +11,6 @@ const whatsappLink = "https://wa.me/34600254338";
 const instagramLink = "https://www.instagram.com/vigarartattoo/";
 const mapsLink = "https://maps.app.goo.gl/aDDJfWMDJhcXpEHE7";
 
-
 // Put your chosen hero photo in /public/images/hero/ and set the path here:
 const heroImageSrc = "/images/heroImg/rocio_001.jpeg";
 
@@ -85,10 +84,10 @@ const featuredItemsEs = featuredItems.map((x) => ({
               class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
               href="/">ES</a
             >
+
             <a
-              class="rounded-full border border-white/10 px-3 py-1 bg-white/10 text-white"
-              href="/en/"
-              aria-current="page">EN</a
+              class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+              href="/en/">EN</a
             >
           </div>
 
@@ -117,18 +116,14 @@ const featuredItemsEs = featuredItems.map((x) => ({
         class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-zinc-300"
       >
         <a
-          class="rounded-full border border-white/10 px-2.5 py-1 hover:bg-white/5"
-          href="/"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/">ES</a
         >
-          ES
-        </a>
+
         <a
-          class="rounded-full border border-white/10 px-2.5 py-1 bg-white/10 text-white"
-          href="/en/"
-          aria-current="page"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/en/">EN</a
         >
-          EN
-        </a>
       </div>
 
       <!-- ✅ Top nav (tablet + desktop = md+) -->
@@ -157,17 +152,13 @@ const featuredItemsEs = featuredItems.map((x) => ({
       <div class="hidden items-center gap-2 text-sm text-zinc-300 md:flex">
         <a
           class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
-          href="/"
+          href="/">ES</a
         >
-          ES
-        </a>
+
         <a
-          class="rounded-full border border-white/10 px-3 py-1 bg-white/10 text-white"
-          href="/en/"
-          aria-current="page"
+          class="rounded-full border border-white/10 px-3 py-1 hover:bg-white/5"
+          href="/en/">EN</a
         >
-          EN
-        </a>
       </div>
 
       <!-- Mobile overlay (ONLY used on mobile) -->
@@ -402,7 +393,7 @@ const featuredItemsEs = featuredItems.map((x) => ({
     <section id="estilos" class="reveal pb-16 pt-10">
       <h2 class="text-2xl font-semibold md:text-3xl">Styles</h2>
 
-      <div class="mt-8 grid gap-4 md:grid-cols-3">
+      <div class="mt-8 grid gap-4 md:grid-cols-4">
         {
           [
             {
@@ -414,6 +405,11 @@ const featuredItemsEs = featuredItems.map((x) => ({
               t: "Blackwork",
               d: "Blank ink, strong contrast and powerful pieces.",
               href: "/en/works#blackwork",
+            },
+            {
+              t: "Pets",
+              d: "Tattoos of pets.",
+              href: "/en/works#pets",
             },
             {
               t: "Color",
