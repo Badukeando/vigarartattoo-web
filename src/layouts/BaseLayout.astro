@@ -415,17 +415,28 @@ const allStructuredData = [baseStructuredData, ...structuredData];
     <script>
       const path = window.location.pathname;
 
-      const esLink = document.querySelector('a[href="/"]');
-      const enLink = document.querySelector('a[href="/en/"]');
+      const esLinks = Array.from(document.querySelectorAll('[data-lang-link="es"]'));
+      const enLinks = Array.from(document.querySelectorAll('[data-lang-link="en"]'));
+
+      const setLangState = (links, active) => {
+        links.forEach((link) => {
+          if (!(link instanceof HTMLAnchorElement)) return;
+          if (active) {
+            link.setAttribute("aria-current", "page");
+            link.classList.add("bg-white/10", "text-white");
+          } else {
+            link.removeAttribute("aria-current");
+            link.classList.remove("bg-white/10", "text-white");
+          }
+        });
+      };
 
       if (path.startsWith("/en")) {
-        enLink?.setAttribute("aria-current", "page");
-        enLink?.classList.add("bg-white/10", "text-white");
-        esLink?.classList.remove("bg-white/10", "text-white");
+        setLangState(enLinks, true);
+        setLangState(esLinks, false);
       } else {
-        esLink?.setAttribute("aria-current", "page");
-        esLink?.classList.add("bg-white/10", "text-white");
-        enLink?.classList.remove("bg-white/10", "text-white");
+        setLangState(esLinks, true);
+        setLangState(enLinks, false);
       }
     </script>
   </body>

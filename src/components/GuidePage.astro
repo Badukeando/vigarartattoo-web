@@ -5,6 +5,9 @@ import { instagramLink, whatsappLink, type SiteLang } from "../data/site";
 
 const { lang } = Astro.props as { lang: SiteLang };
 const content = tattooAftercareGuide[lang];
+const isEn = lang === "en";
+const baseLangPill = "rounded-full border border-white/10 px-3 py-1 hover:bg-white/5";
+const activeLangPill = "text-white";
 
 const structuredData = [
   {
@@ -37,6 +40,26 @@ const structuredData = [
   structuredData={structuredData}
 >
   <main class="mx-auto max-w-5xl px-4 pb-20">
+    <div class="sticky-header pointer-events-none fixed left-0 right-0 top-0 z-[60] hidden" data-sticky-header data-hide-on-lightbox>
+      <div class="mx-auto max-w-6xl px-4 pt-3">
+        <div class="pointer-events-auto relative flex items-center gap-4 rounded-full glass-strong px-4 py-2">
+          <a href={lang === "es" ? "/" : "/en/"} class="shrink-0 text-sm font-semibold tracking-wide text-glass">Vigarartattoo</a>
+          <nav class="hidden min-w-0 flex-1 items-center justify-center gap-3 text-sm text-zinc-200 md:flex text-glass">
+            <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href={lang === "es" ? "/" : "/en/"}>{lang === "es" ? "Inicio" : "Home"}</a>
+            <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href={lang === "es" ? "/works" : "/en/works"}>{lang === "es" ? "Trabajos" : "Works"}</a>
+            <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href={lang === "es" ? "/faq" : "/en/faq"}>FAQ</a>
+          </nav>
+          <div class="ml-auto flex shrink-0 items-center gap-2">
+            <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
+            <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+            <a class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-semibold text-white hover:bg-white/10" href={whatsappLink} target="_blank" rel="noreferrer">
+              {lang === "es" ? "Reservar" : "Book"}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <header class="relative flex items-center justify-between py-6">
       <a href={lang === "es" ? "/" : "/en/"} class="text-lg font-semibold tracking-wide">Vigarartattoo</a>
       <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
@@ -84,19 +107,23 @@ const structuredData = [
       <div class="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
         <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
           <h2 class="text-2xl font-semibold md:text-3xl">{content.tipsTitle}</h2>
-          <ul class="mt-6 grid gap-3 text-sm text-zinc-200 md:text-base">
+          <ul class="mt-6 space-y-4 text-sm text-zinc-200 md:text-base">
             {content.tips.map((tip) => (
-              <li class="rounded-2xl border border-white/10 bg-zinc-950/40 px-4 py-4">{tip}</li>
+              <li class="flex items-start gap-3 border-b border-white/10 pb-4 last:border-b-0 last:pb-0">
+                <span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-white/70"></span>
+                <span>{tip}</span>
+              </li>
             ))}
           </ul>
         </div>
 
         <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-white/7 to-white/[0.03] p-8 md:p-10">
           <h2 class="text-2xl font-semibold md:text-3xl">{content.relatedTitle}</h2>
-          <div class="mt-6 grid gap-3">
+          <div class="mt-6 space-y-3">
             {content.related.map((link) => (
-              <a class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-zinc-200 transition hover:bg-white/10" href={link.href}>
-                {link.label}
+              <a class="flex items-center justify-between border-b border-white/10 pb-3 text-sm text-zinc-200 transition hover:text-white" href={link.href}>
+                <span>{link.label}</span>
+                <span class="text-zinc-500">→</span>
               </a>
             ))}
           </div>

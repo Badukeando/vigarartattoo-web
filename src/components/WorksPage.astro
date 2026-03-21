@@ -47,11 +47,11 @@ const curatedByCategory = {
 
           <div class="ml-auto flex shrink-0 items-center gap-2">
             <div class="hidden md:flex items-center gap-2 text-xs text-zinc-300">
-              <a class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
-              <a class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+              <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
+              <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
             </div>
 
-            <a class="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-zinc-200" href={whatsappLink} target="_blank" rel="noreferrer">
+            <a class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-semibold text-white hover:bg-white/10" href={whatsappLink} target="_blank" rel="noreferrer">
               {content.nav.cta}
             </a>
           </div>
@@ -63,8 +63,8 @@ const curatedByCategory = {
       <a href={content.nav.brandHref} class="text-lg font-semibold tracking-wide">Vigarartattoo</a>
 
       <div class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-zinc-300">
-        <a class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
-        <a class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+        <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
+        <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
       </div>
 
       <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex" data-section-nav>
@@ -87,8 +87,8 @@ const curatedByCategory = {
       </div>
 
       <div class="hidden items-center gap-2 text-sm text-zinc-300 md:flex">
-        <a class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
-        <a class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+        <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
+        <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
       </div>
 
       <div class="menu-overlay fixed inset-0 z-50 hidden md:hidden" data-menu-overlay aria-hidden="true">
@@ -116,8 +116,8 @@ const curatedByCategory = {
 
             {lang === "en" ? (
               <div class="mt-2 grid grid-cols-2 gap-3">
-                <a class={`${baseLangPill}`} href="/">ES</a>
-                <a class={`${baseLangPill} ${activeLangPill}`} href="/en/" aria-current="page">EN</a>
+                <a data-lang-link="es" class={`${baseLangPill}`} href="/">ES</a>
+                <a data-lang-link="en" class={`${baseLangPill} ${activeLangPill}`} href="/en/" aria-current="page">EN</a>
               </div>
             ) : null}
 
