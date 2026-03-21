@@ -1,0 +1,404 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GalleryLightbox from "./GalleryLightbox.astro";
+import { featuredItems, getPortfolioAlt } from "../data/portfolio";
+import { getStudioItems } from "../data/studio";
+import { homePageContent } from "../data/homePage";
+import { instagramLink, mapsLink, whatsappLink, type SiteLang } from "../data/site";
+
+type Review = {
+  author: string;
+  date: string;
+  rating: number;
+  text: string;
+  service?: string;
+};
+
+const { lang, reviews, googleMapsReviewsUrl } = Astro.props as {
+  lang: SiteLang;
+  reviews: Review[];
+  googleMapsReviewsUrl: string;
+};
+
+const content = homePageContent[lang];
+const isEn = lang === "en";
+const studioItems = getStudioItems(lang);
+const featuredItemsLocalized = featuredItems.map((item) => ({
+  ...item,
+  alt: getPortfolioAlt(item, lang),
+}));
+const baseLangPill = "rounded-full border border-white/10 px-3 py-1 hover:bg-white/5";
+const activeLangPill = "bg-white/10 text-white";
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: content.seo.title,
+    description: content.seo.description,
+    inLanguage: lang,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: content.faq.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={content.seo.title}
+  description={content.seo.description}
+  ogImage={content.seo.ogImage}
+  structuredData={structuredData}
+>
+  <main class="mx-auto max-w-6xl px-4">
+    <div
+      class="sticky-header pointer-events-none fixed left-0 right-0 top-0 z-[60] hidden"
+      data-sticky-header
+      data-hide-on-lightbox
+    >
+      <div class="mx-auto max-w-6xl px-4 pt-3">
+        <div class="pointer-events-auto relative flex items-center gap-4 rounded-full glass-strong px-4 py-2">
+          <a href={content.nav.brandHref} class="shrink-0 text-sm font-semibold tracking-wide text-glass">
+            Vigarartattoo
+          </a>
+
+          <nav class="hidden min-w-0 flex-1 items-center justify-center gap-3 text-sm text-zinc-200 md:flex text-glass" data-section-nav>
+            {content.nav.sections.map((section) => (
+              <a
+                class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1"
+                href={section.href}
+                data-section-link={section.id}
+              >
+                {section.label}
+              </a>
+            ))}
+
+            <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href={content.nav.worksHref}>
+              {content.nav.worksLabel}
+            </a>
+          </nav>
+
+          <div class="ml-auto flex shrink-0 items-center gap-2">
+            <a class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
+            <a class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+
+            <a class="rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-zinc-950 hover:bg-zinc-200" href={whatsappLink} target="_blank" rel="noreferrer">
+              {content.nav.cta}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="relative flex items-center justify-between py-6">
+      <a href={content.nav.brandHref} class="text-lg font-semibold tracking-wide">Vigarartattoo</a>
+
+      <div class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-zinc-300">
+        <a class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
+        <a class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+      </div>
+
+      <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
+        {content.nav.sections.map((section) => (
+          <a class="hover:text-white" href={section.href}>{section.label}</a>
+        ))}
+        <a class="hover:text-white" href={content.nav.worksHref}>{content.nav.worksLabel}</a>
+      </nav>
+
+      <div class="flex items-center gap-3 md:hidden">
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+          aria-label={content.nav.menuOpenLabel}
+          data-menu-open
+        >
+          {content.nav.menuButton}
+        </button>
+      </div>
+
+      <div class="hidden items-center gap-2 text-sm text-zinc-300 md:flex">
+        <a class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
+        <a class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+      </div>
+
+      <div class="menu-overlay fixed inset-0 z-50 hidden md:hidden" data-menu-overlay aria-hidden="true">
+        <button class="menu-backdrop absolute inset-0 bg-black/70" aria-label={content.nav.menuCloseLabel} data-menu-close type="button"></button>
+
+        <div class="menu-panel absolute right-0 top-0 h-full w-[85%] max-w-sm border-l border-white/10 bg-zinc-950 p-6">
+          <div class="flex items-center justify-between">
+            <div class="text-lg font-semibold">Vigarartattoo</div>
+            <button
+              type="button"
+              class="rounded-2xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
+              aria-label={content.nav.menuCloseLabel}
+              data-menu-close
+            >
+              {content.nav.menuClose}
+            </button>
+          </div>
+
+          <nav class="mt-8 grid gap-4 text-base">
+            {content.nav.sections.map((section) => (
+              <a class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10" href={section.href} data-menu-link>
+                {section.label}
+              </a>
+            ))}
+
+            <a class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 hover:bg-white/10" href={content.nav.worksHref} data-menu-link>
+              {content.nav.worksLabel}
+            </a>
+
+            <a class="mt-2 rounded-2xl bg-white px-4 py-3 text-center font-semibold text-zinc-950 hover:bg-zinc-200" href={whatsappLink} target="_blank" rel="noreferrer">
+              {content.nav.whatsappCta}
+            </a>
+
+            <a class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-center hover:bg-white/10" href={instagramLink} target="_blank" rel="noreferrer">
+              Instagram
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section class="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950">
+      <img
+        src={content.hero.imageSrc}
+        alt={content.hero.imageAlt}
+        class="absolute inset-0 h-full w-full object-cover"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20"></div>
+      <div class="absolute inset-0 backdrop-blur-[1px]"></div>
+
+      <div class="relative grid gap-10 px-6 py-14 md:grid-cols-2 md:px-12 md:py-20">
+        <div>
+          <p class="text-xs uppercase tracking-[0.35em] text-zinc-200/80">{content.hero.eyebrow}</p>
+
+          <h1 class="mt-4 text-4xl font-semibold leading-tight text-white md:text-6xl">{content.hero.title}</h1>
+
+          <p class="mt-6 text-base text-zinc-200 md:text-lg">{content.hero.description}</p>
+          <p class="mt-4 max-w-2xl text-sm leading-relaxed text-zinc-300 md:text-base">{content.hero.supportingText}</p>
+
+          <div class="mt-8 flex items-center gap-4">
+            <a href={whatsappLink} target="_blank" rel="noreferrer" aria-label={content.nav.whatsappCta} title="WhatsApp" class="group flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 transition hover:scale-110 hover:bg-white/20">
+              <svg class="h-7 w-7 text-green-400 transition group-hover:scale-110" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2.7c-7.4 0-13.3 5.7-13.3 12.8 0 2.3.6 4.6 1.9 6.6L2 29.3l7.5-2.4c1.9 1 4.2 1.6 6.5 1.6 7.4 0 13.3-5.7 13.3-12.8S23.4 2.7 16 2.7zm0 23.3c-2.1 0-4.1-.6-5.9-1.6l-.4-.2-4.4 1.4 1.4-4.2-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9 0-6.1 5.2-11.1 11.4-11.1s11.4 5 11.4 11.1-5.2 11.1-11.4 11.1zm6.4-8.4c-.4-.2-2.2-1-2.6-1.1-.4-.1-.7-.2-1 .2-.3.4-1.1 1.1-1.4 1.4-.3.3-.5.3-.9.1-.4-.2-1.7-.6-3.2-2-.6-.5-1-1.1-1.3-1.5-.3-.4 0-.6.2-.8.2-.2.4-.4.6-.6.2-.2.3-.4.4-.6.1-.2.1-.4 0-.6-.1-.2-1-2.4-1.4-3.3-.4-.9-.7-.7-1-.7h-.9c-.3 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3 0 1.8 1.2 3.5 1.4 3.7.2.2 2.4 3.6 5.9 5 3.5 1.4 3.5.9 4.2.9.7 0 2.2-.9 2.5-1.7.3-.8.3-1.5.2-1.7-.1-.2-.4-.3-.8-.5z"></path></svg>
+            </a>
+
+            <a href={instagramLink} target="_blank" rel="noreferrer" aria-label="Instagram" title="Instagram" class="group flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 transition hover:scale-110 hover:bg-white/20">
+              <svg class="h-6 w-6 text-pink-400 transition group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9z"></path><path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.1A2.9 2.9 0 1 0 14.9 12 2.9 2.9 0 0 0 12 9.1z"></path><path d="M17.6 6.4a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path></svg>
+            </a>
+
+            <a href={mapsLink} target="_blank" rel="noreferrer" aria-label={content.hero.mapLabel} title="Google Maps" class="group flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-white/10 transition hover:scale-110 hover:bg-white/20">
+              <svg class="h-6 w-6 text-blue-400 transition group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c-3.866 0-7 3.134-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5z"></path></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal pb-16 pt-10">
+      <div class="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+          <p class="text-xs uppercase tracking-[0.35em] text-zinc-400">SEO local</p>
+          <h2 class="mt-4 text-2xl font-semibold md:text-4xl">{content.seoIntro.title}</h2>
+          {content.seoIntro.paragraphs.map((paragraph) => (
+            <p class="mt-5 max-w-3xl text-sm leading-relaxed text-zinc-300 md:text-base">{paragraph}</p>
+          ))}
+        </div>
+
+        <div class="grid gap-4">
+          {content.seoIntro.cards.map((card) => (
+            <a href={card.href} class="reveal-item rounded-3xl border border-white/10 bg-gradient-to-br from-white/7 to-white/[0.03] p-6 transition hover:-translate-y-0.5 hover:bg-white/10">
+              <p class="text-sm font-semibold text-white">{card.title}</p>
+              <p class="mt-2 text-sm leading-relaxed text-zinc-300">{card.description}</p>
+              <p class="mt-5 text-xs uppercase tracking-[0.25em] text-zinc-400">{card.cta}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="reveal pb-16 pt-10">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-semibold md:text-3xl">{content.portfolio.title}</h2>
+          <p class="mt-2 text-sm text-zinc-400">{content.portfolio.description}</p>
+        </div>
+
+        <a class="text-sm text-zinc-300 hover:text-white" href={content.portfolio.href}>{content.portfolio.topLinkLabel}</a>
+      </div>
+
+      <div class="mt-8">
+        <GalleryLightbox items={featuredItemsLocalized} galleryId="home-featured" />
+      </div>
+
+      <div class="mt-6">
+        <a href={content.portfolio.href} class="inline-flex rounded-2xl border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5">
+          {content.portfolio.ctaLabel}
+        </a>
+      </div>
+    </section>
+
+    <section id="estilos" class="reveal pb-16 pt-10">
+      <h2 class="text-2xl font-semibold md:text-3xl">{content.styles.title}</h2>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-4">
+        {content.styles.cards.map((style) => (
+          <a href={style.href} class="block rounded-3xl border border-white/10 bg-white/5 p-6 transition hover:bg-white/10">
+            <h3 class="text-lg font-semibold">{style.title}</h3>
+            <p class="mt-2 text-sm text-zinc-300">{style.description}</p>
+            <p class="mt-4 text-xs text-zinc-400">{content.styles.cardCtaLabel}</p>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-4">
+        <a class="text-sm text-zinc-300 hover:text-white" href={content.portfolio.href}>{content.styles.viewAllLabel}</a>
+      </div>
+    </section>
+
+    <section id="estudio" class="reveal pb-16 pt-10">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-semibold md:text-3xl">{content.studio.title}</h2>
+          <p class="mt-2 text-sm text-zinc-400">{content.studio.description}</p>
+        </div>
+
+        <a href={mapsLink} target="_blank" rel="noreferrer" class="text-sm text-zinc-300 hover:text-white">{content.studio.locationLabel}</a>
+      </div>
+
+      <div class="mt-8">
+        <GalleryLightbox items={studioItems} galleryId="home-studio" />
+      </div>
+    </section>
+
+    <section id="sobre" class="reveal pb-16 pt-10">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+        <p class="text-xs uppercase tracking-[0.35em] text-zinc-400">{content.about.eyebrow}</p>
+        <h2 class="mt-4 max-w-3xl text-2xl font-semibold md:text-4xl">{content.about.title}</h2>
+
+        {content.about.paragraphs.map((paragraph) => (
+          <p class="mt-5 max-w-3xl text-sm leading-relaxed text-zinc-300 md:text-base">{paragraph}</p>
+        ))}
+
+        <h3 class="mt-10 text-lg font-semibold text-white md:text-xl">{content.about.expectationsTitle}</h3>
+
+        <ul class="mt-4 grid gap-3 text-sm text-zinc-300 md:grid-cols-2">
+          {content.about.expectations.map((item) => <li>• {item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="reveal pb-20">
+      <header class="mb-6">
+        <h3 class="text-xl font-semibold md:text-2xl">{content.reviews.title}</h3>
+        <p class="mt-1 text-sm text-zinc-400">{content.reviews.subtitle}</p>
+      </header>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {reviews.slice(0, 6).map((review) => (
+          <article class="rounded-2xl border border-white/10 bg-white/5 p-5">
+            <header class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="truncate text-sm font-semibold text-white">{review.author}</p>
+                <p class="mt-0.5 text-xs text-zinc-500">
+                  {review.date}
+                  {review.service ? ` · ${review.service}` : ""}
+                </p>
+              </div>
+
+              <div class="flex shrink-0 gap-0.5 text-yellow-300">
+                {Array.from({ length: review.rating }).map(() => "★")}
+              </div>
+            </header>
+
+            <p class="mt-3 text-sm leading-relaxed text-zinc-200">{review.text}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-8 text-center">
+        <a href={googleMapsReviewsUrl} target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">
+          {content.reviews.ctaLabel}
+        </a>
+      </div>
+    </section>
+
+    <section class="reveal pb-20">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+        <div class="max-w-2xl">
+          <h2 class="text-2xl font-semibold md:text-3xl">{content.faq.title}</h2>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-300 md:text-base">{content.faq.intro}</p>
+        </div>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          {content.faq.items.map((item) => (
+            <article class="rounded-2xl border border-white/10 bg-zinc-950/40 p-5">
+              <h3 class="text-base font-semibold text-white">{item.question}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-zinc-300">{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="reveal pb-20 pt-10">
+      <h2 class="text-2xl font-semibold md:text-3xl">{content.contact.title}</h2>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+          <p class="text-sm text-zinc-300">{content.contact.bookingLabel}</p>
+
+          <div class="mt-8 grid grid-cols-3 gap-4 text-center">
+            <a href={whatsappLink} target="_blank" rel="noreferrer" class="group flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10" aria-label={content.contact.whatsappLabel}>
+              <svg class="h-7 w-7 text-green-400 transition group-hover:scale-110" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2.7c-7.4 0-13.3 5.7-13.3 12.8 0 2.3.6 4.6 1.9 6.6L2 29.3l7.5-2.4c1.9 1 4.2 1.6 6.5 1.6 7.4 0 13.3-5.7 13.3-12.8S23.4 2.7 16 2.7zm0 23.3c-2.1 0-4.1-.6-5.9-1.6l-.4-.2-4.4 1.4 1.4-4.2-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9 0-6.1 5.2-11.1 11.4-11.1s11.4 5 11.4 11.1-5.2 11.1-11.4 11.1zm6.4-8.4c-.4-.2-2.2-1-2.6-1.1-.4-.1-.7-.2-1 .2-.3.4-1.1 1.1-1.4 1.4-.3.3-.5.3-.9.1-.4-.2-1.7-.6-3.2-2-.6-.5-1-1.1-1.3-1.5-.3-.4 0-.6.2-.8.2-.2.4-.4.6-.6.2-.2.3-.4.4-.6.1-.2.1-.4 0-.6-.1-.2-1-2.4-1.4-3.3-.4-.9-.7-.7-1-.7h-.9c-.3 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 3 0 1.8 1.2 3.5 1.4 3.7.2.2 2.4 3.6 5.9 5 3.5 1.4 3.5.9 4.2.9.7 0 2.2-.9 2.5-1.7.3-.8.3-1.5.2-1.7-.1-.2-.4-.3-.8-.5z"></path></svg>
+              <span class="text-xs text-zinc-200">WhatsApp</span>
+            </a>
+
+            <a href={instagramLink} target="_blank" rel="noreferrer" class="group flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 p-4 transition hover:bg-white/10" aria-label={content.contact.instagramLabel}>
+              <svg class="h-7 w-7 text-pink-400 transition group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A4.5 4.5 0 1 0 16.5 12 4.5 4.5 0 0 0 12 7.5zm0 7.3A2.8 2.8 0 1 1 14.8 12 2.8 2.8 0 0 1 12 14.8zM17.2 6.3a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1z"></path></svg>
+              <span class="text-xs text-zinc-200">Instagram</span>
+            </a>
+          </div>
+
+          <p class="mt-6 text-sm text-zinc-300">{content.contact.addressLabel}</p>
+          <p class="mt-2 text-sm text-zinc-200">
+            {content.contact.addressLines[0]}<br />
+            {content.contact.addressLines[1]}
+          </p>
+          <p class="mt-4 text-sm leading-relaxed text-zinc-300">{content.contact.localNote}</p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            {content.contact.resources.map((resource) => (
+              <a class="rounded-full border border-white/10 px-4 py-2 text-xs font-semibold text-zinc-200 hover:bg-white/5" href={resource.href}>
+                {resource.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+          <iframe
+            title={content.contact.mapTitle}
+            src="https://www.google.com/maps?q=Calle%20Miguel%20Moreno%20Masson%2011%20Malaga&output=embed"
+            class="h-full w-full min-h-[260px] grayscale-[30%] contrast-[1.05]"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <footer class="border-t border-white/10 py-8 text-sm text-zinc-500">© {new Date().getFullYear()} {content.footerBrand}</footer>
+  </main>
+</BaseLayout>

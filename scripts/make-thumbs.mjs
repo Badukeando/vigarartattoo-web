@@ -5,11 +5,19 @@ import sharp from "sharp";
 // Config
 const ROOT = process.cwd();
 const PORTFOLIO_DIR = path.join(ROOT, "public", "images", "portfolio");
+const STUDIO_DIR = path.join(ROOT, "public", "images", "Studio");
 const MAX = 800; // thumb size (px). 600–900 suele ir bien para grid.
 const QUALITY_WEBP = 72;
 const QUALITY_AVIF = 45; // AVIF suele verse muy bien con 35–55
 
-const categories = ["featured", "fine-line", "blackwork", "color", "Studio", "varios"];
+const portfolioCategories = [
+  "featured",
+  "fine-line",
+  "blackwork",
+  "color",
+  "pets",
+  "varios",
+];
 
 async function exists(p) {
   try { await fs.access(p); return true; } catch { return false; }
@@ -68,11 +76,18 @@ async function makeThumbsForFile(file) {
 }
 
 async function main() {
-  for (const cat of categories) {
+  for (const cat of portfolioCategories) {
     const dir = path.join(PORTFOLIO_DIR, cat);
+    if (!(await exists(dir))) continue;
     const files = (await walk(dir)).filter(isJpeg);
     for (const f of files) await makeThumbsForFile(f);
   }
+
+  if (await exists(STUDIO_DIR)) {
+    const files = (await walk(STUDIO_DIR)).filter(isJpeg);
+    for (const f of files) await makeThumbsForFile(f);
+  }
+
   console.log("Done.");
 }
 

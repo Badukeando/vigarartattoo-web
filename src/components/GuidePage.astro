@@ -1,0 +1,129 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { tattooAftercareGuide } from "../data/guidePages";
+import { instagramLink, whatsappLink, type SiteLang } from "../data/site";
+
+const { lang } = Astro.props as { lang: SiteLang };
+const content = tattooAftercareGuide[lang];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: content.seo.title,
+    description: content.seo.description,
+    inLanguage: lang,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: content.faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={content.seo.title}
+  description={content.seo.description}
+  ogImage={content.seo.ogImage}
+  structuredData={structuredData}
+>
+  <main class="mx-auto max-w-5xl px-4 pb-20">
+    <header class="relative flex items-center justify-between py-6">
+      <a href={lang === "es" ? "/" : "/en/"} class="text-lg font-semibold tracking-wide">Vigarartattoo</a>
+      <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
+        <a class="hover:text-white" href={lang === "es" ? "/" : "/en/"}>{lang === "es" ? "Inicio" : "Home"}</a>
+        <a class="hover:text-white" href={lang === "es" ? "/works" : "/en/works"}>{lang === "es" ? "Trabajos" : "Works"}</a>
+      </nav>
+      <a class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-200" href={whatsappLink} target="_blank" rel="noreferrer">
+        {lang === "es" ? "Reservar" : "Book"}
+      </a>
+    </header>
+
+    <section class="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950 px-6 py-14 md:px-12 md:py-18">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.12),transparent_45%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_60%)]"></div>
+      <div class="relative">
+        <p class="text-xs uppercase tracking-[0.35em] text-zinc-300/80">{content.hero.eyebrow}</p>
+        <h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">{content.hero.title}</h1>
+        <p class="mt-6 max-w-3xl text-base leading-relaxed text-zinc-200 md:text-lg">{content.hero.description}</p>
+      </div>
+    </section>
+
+    <section class="reveal pb-16 pt-10">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+        {content.intro.map((paragraph) => (
+          <p class="mt-5 first:mt-0 text-sm leading-relaxed text-zinc-300 md:text-base">{paragraph}</p>
+        ))}
+      </div>
+    </section>
+
+    <section class="reveal pb-16">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+        <h2 class="text-2xl font-semibold md:text-3xl">{content.stepsTitle}</h2>
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          {content.steps.map((step, index) => (
+            <article class="rounded-2xl border border-white/10 bg-zinc-950/40 p-5">
+              <p class="text-xs uppercase tracking-[0.3em] text-zinc-500">0{index + 1}</p>
+              <h3 class="mt-3 text-lg font-semibold text-white">{step.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-zinc-300">{step.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal pb-16">
+      <div class="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+          <h2 class="text-2xl font-semibold md:text-3xl">{content.tipsTitle}</h2>
+          <ul class="mt-6 grid gap-3 text-sm text-zinc-200 md:text-base">
+            {content.tips.map((tip) => (
+              <li class="rounded-2xl border border-white/10 bg-zinc-950/40 px-4 py-4">{tip}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-white/7 to-white/[0.03] p-8 md:p-10">
+          <h2 class="text-2xl font-semibold md:text-3xl">{content.relatedTitle}</h2>
+          <div class="mt-6 grid gap-3">
+            {content.related.map((link) => (
+              <a class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-zinc-200 transition hover:bg-white/10" href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <div class="mt-8 rounded-2xl border border-white/10 bg-zinc-950/40 p-5">
+            <p class="text-sm leading-relaxed text-zinc-300">{lang === "es" ? "Si tienes dudas después de tu cita, lo mejor es consultar directamente para valorar tu caso concreto." : "If you have any doubts after your appointment, the best option is to ask directly so your case can be assessed properly."}</p>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-200" href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp</a>
+              <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:bg-white/5" href={instagramLink} target="_blank" rel="noreferrer">Instagram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal pb-16">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+        <h2 class="text-2xl font-semibold md:text-3xl">{content.faqTitle}</h2>
+        <div class="mt-8 grid gap-4 md:grid-cols-2">
+          {content.faq.map((item) => (
+            <article class="rounded-2xl border border-white/10 bg-zinc-950/40 p-5">
+              <h3 class="text-base font-semibold text-white">{item.question}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-zinc-300">{item.answer}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

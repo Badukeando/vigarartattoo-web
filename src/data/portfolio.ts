@@ -884,9 +884,9 @@ export const portfolioItems: PortfolioItem[] = [
     to: 21,
     ext: "jpeg",
   }),
-    ...buildRange({
+  ...buildRange({
     category: "pets",
-    prefix: "pe",
+    prefix: "pt",
     from: 1,
     to: 14,
     ext: "jpeg",

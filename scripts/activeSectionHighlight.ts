@@ -75,12 +75,25 @@ export function initActiveSectionHighlight(): void {
     }
 
     const offset = getTopOffset();
-    let current = sections[0];
+    let current: HTMLElement | null = null;
 
     for (const s of sections) {
-      const top = s.getBoundingClientRect().top;
-      if (top - offset <= 0) current = s;
-      else break;
+      const rect = s.getBoundingClientRect();
+      const top = rect.top - offset;
+      const bottom = rect.bottom - offset;
+
+      if (top <= 0 && bottom > 0) {
+        current = s;
+        break;
+      }
+    }
+
+    if (!current) {
+      current = sections.reduce((closest, section) => {
+        const currentDistance = Math.abs(section.getBoundingClientRect().top - offset);
+        const closestDistance = Math.abs(closest.getBoundingClientRect().top - offset);
+        return currentDistance < closestDistance ? section : closest;
+      }, sections[0]);
     }
 
     const nearBottom =
@@ -101,4 +114,17 @@ export function initActiveSectionHighlight(): void {
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll, { passive: true });
+
+  links.forEach((a) => {
+    a.addEventListener("click", () => {
+      const id = normalizeId(a.getAttribute("data-section-link"));
+      if (!id) return;
+      activeId = id;
+      setActive(id);
+      requestAnimationFrame(update);
+      window.setTimeout(update, 180);
+    });
+  });
+
+  update();
 }

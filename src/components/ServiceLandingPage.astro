@@ -1,0 +1,194 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GalleryLightbox from "./GalleryLightbox.astro";
+import { blackworkItems, colorItems, fineLineItems, getPortfolioAlt, petsItems } from "../data/portfolio";
+import { getStudioItems } from "../data/studio";
+import { servicePageContent, type ServicePageKey } from "../data/servicePages";
+import { instagramLink, mapsLink, whatsappLink, type SiteLang } from "../data/site";
+
+const { lang, pageKey } = Astro.props as {
+  lang: SiteLang;
+  pageKey: ServicePageKey;
+};
+
+const content = servicePageContent[lang][pageKey];
+const portfolioSourceByKey = {
+  "fine-line": fineLineItems,
+  blackwork: blackworkItems,
+  color: colorItems,
+  pets: petsItems,
+} as const;
+const gallerySource =
+  pageKey === "studio"
+    ? getStudioItems(lang)
+    : portfolioSourceByKey[pageKey].map((item) => ({
+        ...item,
+        alt: getPortfolioAlt(item, lang),
+      }));
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: content.seo.title,
+    description: content.seo.description,
+    inLanguage: lang,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: lang === "es" ? "Inicio" : "Home",
+        item: lang === "es" ? "https://vigarartattoo.com/" : "https://vigarartattoo.com/en/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: content.hero.eyebrow,
+        item: `https://vigarartattoo.com${content.path}`,
+      },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: content.faq.items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={content.seo.title}
+  description={content.seo.description}
+  ogImage={content.seo.ogImage}
+  structuredData={structuredData}
+>
+  <main class="mx-auto max-w-6xl px-4 pb-20">
+    <header class="relative flex items-center justify-between py-6">
+      <a href={lang === "es" ? "/" : "/en/"} class="text-lg font-semibold tracking-wide">Vigarartattoo</a>
+      <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
+        <a class="hover:text-white" href={lang === "es" ? "/" : "/en/"}>{lang === "es" ? "Inicio" : "Home"}</a>
+        <a class="hover:text-white" href={lang === "es" ? "/works" : "/en/works"}>{lang === "es" ? "Trabajos" : "Works"}</a>
+        <a class="hover:text-white" href={lang === "es" ? "/#contacto" : "/en/#contacto"}>{lang === "es" ? "Contacto" : "Contact"}</a>
+      </nav>
+      <a class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-200" href={whatsappLink} target="_blank" rel="noreferrer">
+        {lang === "es" ? "Reservar" : "Book"}
+      </a>
+    </header>
+
+    <section class="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-950">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.12),transparent_45%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_60%)]"></div>
+      <div class="relative px-6 py-14 md:px-12 md:py-18">
+        <p class="text-xs uppercase tracking-[0.35em] text-zinc-300/80">{content.hero.eyebrow}</p>
+        <h1 class="mt-4 max-w-4xl text-4xl font-semibold leading-tight text-white md:text-6xl">{content.hero.title}</h1>
+        <p class="mt-6 max-w-3xl text-base leading-relaxed text-zinc-200 md:text-lg">{content.hero.description}</p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a class="rounded-full bg-white px-5 py-3 text-sm font-semibold text-zinc-950 hover:bg-zinc-200" href={whatsappLink} target="_blank" rel="noreferrer">
+            {content.cta.primary}
+          </a>
+          <a class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5" href={lang === "es" ? "/works" : "/en/works"}>
+            {content.cta.secondary}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal pb-16 pt-10">
+      <div class="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+          <h2 class="text-2xl font-semibold md:text-3xl">{content.intro.title}</h2>
+          {content.intro.paragraphs.map((paragraph) => (
+            <p class="mt-5 text-sm leading-relaxed text-zinc-300 md:text-base">{paragraph}</p>
+          ))}
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-zinc-900/70 p-8 md:p-10">
+          <h2 class="text-2xl font-semibold md:text-3xl">{content.highlights.title}</h2>
+          <ul class="mt-6 grid gap-3 text-sm text-zinc-200 md:text-base">
+            {content.highlights.items.map((item) => (
+              <li class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal pb-16">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+        <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 class="text-2xl font-semibold md:text-3xl">{content.gallery.title}</h2>
+            <p class="mt-2 text-sm text-zinc-400">{content.gallery.description}</p>
+          </div>
+          <a class="text-sm text-zinc-300 hover:text-white" href={lang === "es" ? "/works" : "/en/works"}>{lang === "es" ? "Ver portfolio completo →" : "View full portfolio →"}</a>
+        </div>
+
+        <div class="mt-8">
+          <GalleryLightbox items={gallerySource} galleryId={`service-${lang}-${pageKey}`} />
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal pb-16">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+        <h2 class="text-2xl font-semibold md:text-3xl">{content.process.title}</h2>
+        <div class="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {content.process.steps.map((step, index) => (
+            <article class="rounded-2xl border border-white/10 bg-zinc-950/40 p-5">
+              <p class="text-xs uppercase tracking-[0.3em] text-zinc-500">0{index + 1}</p>
+              <h3 class="mt-3 text-lg font-semibold text-white">{step.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-zinc-300">{step.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal pb-16">
+      <div class="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-8 md:p-10">
+          <h2 class="text-2xl font-semibold md:text-3xl">{content.faq.title}</h2>
+          <div class="mt-8 grid gap-4">
+            {content.faq.items.map((item) => (
+              <article class="rounded-2xl border border-white/10 bg-zinc-950/40 p-5">
+                <h3 class="text-base font-semibold text-white">{item.question}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-zinc-300">{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-white/7 to-white/[0.03] p-8 md:p-10">
+          <h2 class="text-2xl font-semibold md:text-3xl">{content.related.title}</h2>
+          <div class="mt-6 grid gap-3">
+            {content.related.links.map((link) => (
+              <a class="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-sm text-zinc-200 transition hover:bg-white/10" href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <div class="mt-8 rounded-2xl border border-white/10 bg-zinc-950/40 p-5">
+            <p class="text-sm leading-relaxed text-zinc-300">{content.cta.text}</p>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-200" href={whatsappLink} target="_blank" rel="noreferrer">{content.cta.primary}</a>
+              <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:bg-white/5" href={pageKey === "studio" ? mapsLink : instagramLink} target="_blank" rel="noreferrer">{pageKey === "studio" ? "Google Maps" : "Instagram"}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

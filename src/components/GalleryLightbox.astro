@@ -25,6 +25,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
     {items.map((item, index) => {
       const thumb = getThumb(item);
       const full = getFull(item);
+      const imgSrc = thumb || full;
 
       return (
         <button
@@ -39,21 +40,11 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
           title={item.alt}
         >
           <picture>
-            <source
-              srcset={item.src
-                .replace("/portfolio/", "/portfolio/")
-                .replace(/\/([^\/]+)\.(jpe?g|png)$/i, "/thumbs/$1.avif")}
-              type="image/avif"
-            />
-            <source
-              srcset={item.src.replace(/\/([^\/]+)\.(jpe?g|png)$/i, "/thumbs/$1.webp")}
-              type="image/webp"
-            />
             <img
-              src={item.src.replace(/\/([^\/]+)\.(jpe?g|png)$/i, "/thumbs/$1.webp")}
+              src={imgSrc}
               alt={item.alt}
               class="aspect-square w-full object-cover transition duration-300 group-hover:scale-[1.03]"
-              loading={index < 6 ? "eager" : "lazy"}
+              loading={index < 3 ? "eager" : "lazy"}
               decoding="async"
             />
           </picture>
@@ -305,7 +296,7 @@ const getFull = (it: Item) => it.fullSrc || it.src || "";
       });
 
       const items = buttons.map((b) => ({
-        src: b.getAttribute("data-src") || "", // ✅ full image
+        src: b.getAttribute("data-src") || b.getAttribute("data-thumb") || "",
         alt: b.getAttribute("data-alt") || "",
       }));
 
