@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { homeRouteAlternates, worksRouteAlternates } from "../data/routeAlternates";
+import { whatsappLink } from "../data/site";
+---
+
+<BaseLayout
+  lang="es"
+  title="404 | Vigarartattoo"
+  description="La pagina que buscas no existe o ya no esta disponible."
+  canonicalPath="/404"
+  robots="noindex,follow,max-image-preview:large"
+  hideAlternates={true}
+>
+  <main class="mx-auto flex min-h-screen max-w-4xl items-center px-4 py-16">
+    <section class="w-full rounded-3xl border border-white/10 bg-zinc-950 px-6 py-14 text-center md:px-10">
+      <p class="text-xs uppercase tracking-[0.35em] text-zinc-400">Error 404</p>
+      <h1 class="mt-4 text-4xl font-semibold text-white md:text-6xl">Esta pagina no existe.</h1>
+      <p class="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-zinc-300 md:text-base">
+        Puede que la URL este mal escrita o que el contenido se haya movido. Usa una de las rutas principales para seguir navegando.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <a class="rounded-full bg-white px-5 py-3 text-sm font-semibold text-zinc-950 hover:bg-zinc-200" href={homeRouteAlternates.es}>
+          Ir al inicio
+        </a>
+        <a class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5" href={worksRouteAlternates.es}>
+          Ver trabajos
+        </a>
+        <a class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white hover:bg-white/5" href={whatsappLink} target="_blank" rel="noreferrer">
+          Reservar por WhatsApp
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

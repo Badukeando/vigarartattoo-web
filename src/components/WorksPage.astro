@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import GalleryLightbox from "./GalleryLightbox.astro";
+import { worksRouteAlternates } from "../data/routeAlternates";
 import {
   portfolioByCategory,
   blackworkItems,
@@ -17,6 +18,7 @@ const { lang } = Astro.props as { lang: SiteLang };
 
 const content = worksPageContent[lang];
 const isEn = lang === "en";
+const alternatePaths = worksRouteAlternates;
 const baseLangPill = "rounded-full border border-white/10 px-3 py-1 hover:bg-white/5";
 const activeLangPill = "bg-white/10 text-white";
 const curatedByCategory = {
@@ -28,7 +30,14 @@ const curatedByCategory = {
 } as const;
 ---
 
-<BaseLayout lang={lang} title={content.seo.title} description={content.seo.description} ogImage={content.seo.ogImage}>
+<BaseLayout
+  lang={lang}
+  title={content.seo.title}
+  description={content.seo.description}
+  ogImage={content.seo.ogImage}
+  canonicalPath={alternatePaths[lang]}
+  alternatePaths={alternatePaths}
+>
   <main class="mx-auto max-w-6xl px-4">
     <div class="sticky-header pointer-events-none fixed left-0 right-0 top-0 z-[60] hidden" data-sticky-header data-hide-on-lightbox>
       <div class="mx-auto max-w-6xl px-4 pt-3">
@@ -47,8 +56,8 @@ const curatedByCategory = {
 
           <div class="ml-auto flex shrink-0 items-center gap-2">
             <div class="hidden md:flex items-center gap-2 text-xs text-zinc-300">
-              <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
-              <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+              <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href={alternatePaths.es} aria-current={!isEn ? "page" : undefined}>ES</a>
+              <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href={alternatePaths.en} aria-current={isEn ? "page" : undefined}>EN</a>
             </div>
 
             <a class="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-semibold text-white hover:bg-white/10" href={whatsappLink} target="_blank" rel="noreferrer">
@@ -63,8 +72,8 @@ const curatedByCategory = {
       <a href={content.nav.brandHref} class="text-lg font-semibold tracking-wide">Vigarartattoo</a>
 
       <div class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-xs text-zinc-300">
-        <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
-        <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+        <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href={alternatePaths.es} aria-current={!isEn ? "page" : undefined}>ES</a>
+        <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href={alternatePaths.en} aria-current={isEn ? "page" : undefined}>EN</a>
       </div>
 
       <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex" data-section-nav>
@@ -87,8 +96,8 @@ const curatedByCategory = {
       </div>
 
       <div class="hidden items-center gap-2 text-sm text-zinc-300 md:flex">
-        <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href="/" aria-current={!isEn ? "page" : undefined}>ES</a>
-        <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href="/en/" aria-current={isEn ? "page" : undefined}>EN</a>
+        <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href={alternatePaths.es} aria-current={!isEn ? "page" : undefined}>ES</a>
+        <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href={alternatePaths.en} aria-current={isEn ? "page" : undefined}>EN</a>
       </div>
 
       <div class="menu-overlay fixed inset-0 z-50 hidden md:hidden" data-menu-overlay aria-hidden="true">
@@ -116,8 +125,8 @@ const curatedByCategory = {
 
             {lang === "en" ? (
               <div class="mt-2 grid grid-cols-2 gap-3">
-                <a data-lang-link="es" class={`${baseLangPill}`} href="/">ES</a>
-                <a data-lang-link="en" class={`${baseLangPill} ${activeLangPill}`} href="/en/" aria-current="page">EN</a>
+                <a data-lang-link="es" class={baseLangPill} href={alternatePaths.es} aria-current={isEn ? undefined : "page"}>ES</a>
+                <a data-lang-link="en" class={`${baseLangPill} ${isEn ? activeLangPill : ""}`} href={alternatePaths.en} aria-current={isEn ? "page" : undefined}>EN</a>
               </div>
             ) : null}
 
