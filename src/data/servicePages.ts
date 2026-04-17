@@ -59,7 +59,7 @@ type ServicePageContent = {
 export const servicePageContent: Record<SiteLang, Record<ServicePageKey, ServicePageContent>> = {
   es: {
     studio: {
-      path: "/estudio-tatuajes-malaga",
+      path: "/estudio-tatuajes-malaga/",
       seo: {
         title: "Estudio de Tatuajes en Málaga | Vigarartattoo",
         description:
@@ -133,9 +133,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "Servicios relacionados",
         links: [
-          { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga" },
-          { label: "Tatuajes blackwork en Málaga", href: "/tatuajes-blackwork-malaga" },
-          { label: "Portfolio completo", href: "/works" },
+          { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga/" },
+          { label: "Tatuajes blackwork en Málaga", href: "/tatuajes-blackwork-malaga/" },
+          { label: "Portfolio completo", href: "/works/" },
         ],
       },
       cta: {
@@ -146,7 +146,7 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       },
     },
     "fine-line": {
-      path: "/tatuajes-fine-line-malaga",
+      path: "/tatuajes-fine-line-malaga/",
       seo: {
         title: "Tatuajes Fine Line en Málaga | Vigarartattoo",
         description:
@@ -220,9 +220,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "También te puede interesar",
         links: [
-          { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga" },
-          { label: "Tatuajes blackwork en Málaga", href: "/tatuajes-blackwork-malaga" },
-          { label: "Portfolio completo", href: "/works#fine-line" },
+          { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga/" },
+          { label: "Tatuajes blackwork en Málaga", href: "/tatuajes-blackwork-malaga/" },
+          { label: "Portfolio completo", href: "/works/#fine-line" },
         ],
       },
       cta: {
@@ -233,7 +233,7 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       },
     },
     blackwork: {
-      path: "/tatuajes-blackwork-malaga",
+      path: "/tatuajes-blackwork-malaga/",
       seo: {
         title: "Tatuajes Blackwork en Málaga | Vigarartattoo",
         description:
@@ -307,9 +307,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "También te puede interesar",
         links: [
-          { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga" },
-          { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga" },
-          { label: "Portfolio completo", href: "/works#blackwork" },
+          { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga/" },
+          { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga/" },
+          { label: "Portfolio completo", href: "/works/#blackwork" },
         ],
       },
       cta: {
@@ -320,7 +320,7 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       },
     },
     color: {
-      path: "/tatuajes-color-malaga",
+      path: "/tatuajes-color-malaga/",
       seo: {
         title: "Tatuajes a Color en Málaga | Vigarartattoo",
         description:
@@ -394,9 +394,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "También te puede interesar",
         links: [
-          { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga" },
-          { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga" },
-          { label: "Portfolio completo", href: "/works#color" },
+          { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga/" },
+          { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga/" },
+          { label: "Portfolio completo", href: "/works/#color" },
         ],
       },
       cta: {
@@ -407,7 +407,7 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       },
     },
     pets: {
-      path: "/tatuajes-mascotas-malaga",
+      path: "/tatuajes-mascotas-malaga/",
       seo: {
         title: "Tatuajes de Mascotas en Málaga | Vigarartattoo",
         description:
@@ -481,9 +481,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "También te puede interesar",
         links: [
-          { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga" },
-          { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga" },
-          { label: "Portfolio completo", href: "/works#pets" },
+          { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga/" },
+          { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga/" },
+          { label: "Portfolio completo", href: "/works/#pets" },
         ],
       },
       cta: {
@@ -496,7 +496,7 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
   },
   en: {
     studio: {
-      path: "/en/tattoo-studio-malaga",
+      path: "/en/tattoo-studio-malaga/",
       seo: {
         title: "Tattoo Studio in Malaga | Vigarartattoo",
         description:
@@ -570,9 +570,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "Related services",
         links: [
-          { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga" },
-          { label: "Blackwork tattoos in Malaga", href: "/en/blackwork-tattoos-malaga" },
-          { label: "Full portfolio", href: "/en/works" },
+          { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga/" },
+          { label: "Blackwork tattoos in Malaga", href: "/en/blackwork-tattoos-malaga/" },
+          { label: "Full portfolio", href: "/en/works/" },
         ],
       },
       cta: {
@@ -583,7 +583,7 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       },
     },
     "fine-line": {
-      path: "/en/fine-line-tattoos-malaga",
+      path: "/en/fine-line-tattoos-malaga/",
       seo: {
         title: "Fine Line Tattoos in Malaga | Vigarartattoo",
         description:
@@ -657,9 +657,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "You may also like",
         links: [
-          { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga" },
-          { label: "Blackwork tattoos in Malaga", href: "/en/blackwork-tattoos-malaga" },
-          { label: "Full portfolio", href: "/en/works#fine-line" },
+          { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga/" },
+          { label: "Blackwork tattoos in Malaga", href: "/en/blackwork-tattoos-malaga/" },
+          { label: "Full portfolio", href: "/en/works/#fine-line" },
         ],
       },
       cta: {
@@ -670,7 +670,7 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       },
     },
     blackwork: {
-      path: "/en/blackwork-tattoos-malaga",
+      path: "/en/blackwork-tattoos-malaga/",
       seo: {
         title: "Blackwork Tattoos in Malaga | Vigarartattoo",
         description:
@@ -744,9 +744,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "You may also like",
         links: [
-          { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga" },
-          { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga" },
-          { label: "Full portfolio", href: "/en/works#blackwork" },
+          { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga/" },
+          { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga/" },
+          { label: "Full portfolio", href: "/en/works/#blackwork" },
         ],
       },
       cta: {
@@ -757,7 +757,7 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       },
     },
     color: {
-      path: "/en/color-tattoos-malaga",
+      path: "/en/color-tattoos-malaga/",
       seo: {
         title: "Color Tattoos in Malaga | Vigarartattoo",
         description:
@@ -831,9 +831,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "You may also like",
         links: [
-          { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga" },
-          { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga" },
-          { label: "Full portfolio", href: "/en/works#color" },
+          { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga/" },
+          { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga/" },
+          { label: "Full portfolio", href: "/en/works/#color" },
         ],
       },
       cta: {
@@ -844,7 +844,7 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       },
     },
     pets: {
-      path: "/en/pet-tattoos-malaga",
+      path: "/en/pet-tattoos-malaga/",
       seo: {
         title: "Pet Tattoos in Malaga | Vigarartattoo",
         description:
@@ -918,9 +918,9 @@ export const servicePageContent: Record<SiteLang, Record<ServicePageKey, Service
       related: {
         title: "You may also like",
         links: [
-          { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga" },
-          { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga" },
-          { label: "Full portfolio", href: "/en/works#pets" },
+          { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga/" },
+          { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga/" },
+          { label: "Full portfolio", href: "/en/works/#pets" },
         ],
       },
       cta: {

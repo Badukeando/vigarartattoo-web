@@ -20,7 +20,7 @@ type FaqPageContent = {
 
 export const faqPageContent: Record<SiteLang, FaqPageContent> = {
   es: {
-    path: "/faq",
+    path: "/faq/",
     seo: {
       title: "FAQ Tatuajes en Málaga | Reservas, Diseños y Cuidados | Vigarartattoo",
       description:
@@ -65,13 +65,13 @@ export const faqPageContent: Record<SiteLang, FaqPageContent> = {
     ],
     relatedTitle: "Más páginas útiles",
     related: [
-      { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga" },
-      { label: "Cuidados del tatuaje", href: "/cuidados-tatuaje" },
-      { label: "Portfolio completo", href: "/works" },
+      { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga/" },
+      { label: "Cuidados del tatuaje", href: "/cuidados-tatuaje/" },
+      { label: "Portfolio completo", href: "/works/" },
     ],
   },
   en: {
-    path: "/en/faq",
+    path: "/en/faq/",
     seo: {
       title: "Tattoo FAQ in Malaga | Booking, Designs and Aftercare | Vigarartattoo",
       description:
@@ -116,9 +116,9 @@ export const faqPageContent: Record<SiteLang, FaqPageContent> = {
     ],
     relatedTitle: "More useful pages",
     related: [
-      { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga" },
-      { label: "Tattoo aftercare guide", href: "/en/tattoo-aftercare" },
-      { label: "Full portfolio", href: "/en/works" },
+      { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga/" },
+      { label: "Tattoo aftercare guide", href: "/en/tattoo-aftercare/" },
+      { label: "Full portfolio", href: "/en/works/" },
     ],
   },
 };

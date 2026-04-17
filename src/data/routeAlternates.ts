@@ -11,8 +11,8 @@ export const homeRouteAlternates: RouteAlternates = {
 };
 
 export const worksRouteAlternates: RouteAlternates = {
-  es: "/works",
-  en: "/en/works",
+  es: "/works/",
+  en: "/en/works/",
 };
 
 export const faqRouteAlternates: RouteAlternates = {

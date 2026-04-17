@@ -116,7 +116,7 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
         { href: "#sobre", label: "Rocío", id: "sobre" },
         { href: "#contacto", label: "Contacto", id: "contacto" },
       ],
-      worksHref: "/works",
+      worksHref: "/works/",
       worksLabel: "Trabajos",
       cta: "Reservar",
       menuButton: "Menú",
@@ -146,25 +146,25 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
         {
           title: "Estudio de tatuajes en Málaga",
           description: "Conoce el espacio, la forma de trabajo y por qué tantas clientas repiten.",
-          href: "/estudio-tatuajes-malaga",
+          href: "/estudio-tatuajes-malaga/",
           cta: "Ver estudio →",
         },
         {
           title: "Tatuajes fine line en Málaga",
           description: "Piezas delicadas, limpias y pensadas para envejecer con armonía.",
-          href: "/tatuajes-fine-line-malaga",
+          href: "/tatuajes-fine-line-malaga/",
           cta: "Ver fine line →",
         },
         {
           title: "Tatuajes blackwork en Málaga",
           description: "Contraste, composición y fuerza visual en tinta negra.",
-          href: "/tatuajes-blackwork-malaga",
+          href: "/tatuajes-blackwork-malaga/",
           cta: "Ver blackwork →",
         },
         {
           title: "Cuidados del tatuaje",
           description: "Guía básica para cuidar tu tatuaje y favorecer una buena curación.",
-          href: "/cuidados-tatuaje",
+          href: "/cuidados-tatuaje/",
           cta: "Ver cuidados →",
         },
       ],
@@ -174,7 +174,7 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
       description: "Una selección de trabajos destacados y tatuajes realizados en el estudio de Málaga.",
       topLinkLabel: "Ver portfolio completo →",
       ctaLabel: "Ver todos los trabajos →",
-      href: "/works",
+      href: "/works/",
     },
     styles: {
       title: "Estilos",
@@ -184,22 +184,22 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
         {
           title: "Fine line",
           description: "Trazos finos, delicados y elegantes.",
-          href: "/tatuajes-fine-line-malaga",
+          href: "/tatuajes-fine-line-malaga/",
         },
         {
           title: "Blackwork",
           description: "Negro sólido, contraste y piezas potentes.",
-          href: "/tatuajes-blackwork-malaga",
+          href: "/tatuajes-blackwork-malaga/",
         },
         {
           title: "Mascotas",
           description: "Tatuajes de mascotas.",
-          href: "/tatuajes-mascotas-malaga",
+          href: "/tatuajes-mascotas-malaga/",
         },
         {
           title: "Color",
           description: "Piezas vibrantes con contraste y detalle.",
-          href: "/tatuajes-color-malaga",
+          href: "/tatuajes-color-malaga/",
         },
       ],
     },
@@ -240,8 +240,8 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
       localNote:
         "Estudio en Málaga capital con atención personalizada y reserva previa por WhatsApp o Instagram.",
       resources: [
-        { label: "FAQ tatuajes en Málaga", href: "/faq" },
-        { label: "Cuidados del tatuaje", href: "/cuidados-tatuaje" },
+        { label: "FAQ tatuajes en Málaga", href: "/faq/" },
+        { label: "Cuidados del tatuaje", href: "/cuidados-tatuaje/" },
       ],
     },
     faq: {
@@ -284,7 +284,7 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
         { href: "#sobre", label: "About", id: "sobre" },
         { href: "#contacto", label: "Contact", id: "contacto" },
       ],
-      worksHref: "/en/works",
+      worksHref: "/en/works/",
       worksLabel: "Works",
       cta: "Book",
       menuButton: "Menu",
@@ -314,25 +314,25 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
         {
           title: "Tattoo studio in Malaga",
           description: "See the studio, the workflow and what makes the experience feel personal.",
-          href: "/en/tattoo-studio-malaga",
+          href: "/en/tattoo-studio-malaga/",
           cta: "View studio →",
         },
         {
           title: "Fine line tattoos in Malaga",
           description: "Delicate, clean pieces designed with balance and longevity in mind.",
-          href: "/en/fine-line-tattoos-malaga",
+          href: "/en/fine-line-tattoos-malaga/",
           cta: "View fine line →",
         },
         {
           title: "Blackwork tattoos in Malaga",
           description: "Black ink pieces with structure, contrast and visual impact.",
-          href: "/en/blackwork-tattoos-malaga",
+          href: "/en/blackwork-tattoos-malaga/",
           cta: "View blackwork →",
         },
         {
           title: "Tattoo aftercare guide",
           description: "A simple guide to caring for your tattoo and supporting a smooth healing process.",
-          href: "/en/tattoo-aftercare",
+          href: "/en/tattoo-aftercare/",
           cta: "View aftercare →",
         },
       ],
@@ -342,7 +342,7 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
       description: "A selection of featured tattoos created in the Malaga studio.",
       topLinkLabel: "View full portfolio →",
       ctaLabel: "View all works",
-      href: "/en/works",
+      href: "/en/works/",
     },
     styles: {
       title: "Styles",
@@ -352,22 +352,22 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
         {
           title: "Fine line",
           description: "Delicate, elegant thin lines.",
-          href: "/en/fine-line-tattoos-malaga",
+          href: "/en/fine-line-tattoos-malaga/",
         },
         {
           title: "Blackwork",
           description: "Black ink, strong contrast and powerful pieces.",
-          href: "/en/blackwork-tattoos-malaga",
+          href: "/en/blackwork-tattoos-malaga/",
         },
         {
           title: "Pets",
           description: "Tattoos of pets.",
-          href: "/en/pet-tattoos-malaga",
+          href: "/en/pet-tattoos-malaga/",
         },
         {
           title: "Color",
           description: "Vibrant pieces with vivid details.",
-          href: "/en/color-tattoos-malaga",
+          href: "/en/color-tattoos-malaga/",
         },
       ],
     },
@@ -408,8 +408,8 @@ export const homePageContent: Record<SiteLang, HomePageContent> = {
       localNote:
         "Malaga studio with a personal approach and booking handled in advance through WhatsApp or Instagram.",
       resources: [
-        { label: "Tattoo FAQ in Malaga", href: "/en/faq" },
-        { label: "Tattoo aftercare guide", href: "/en/tattoo-aftercare" },
+        { label: "Tattoo FAQ in Malaga", href: "/en/faq/" },
+        { label: "Tattoo aftercare guide", href: "/en/tattoo-aftercare/" },
       ],
     },
     faq: {

@@ -1,0 +1,22 @@
+{
+  "redirects": [
+    { "source": "/works", "destination": "/works/", "permanent": true },
+    { "source": "/en/works", "destination": "/en/works/", "permanent": true },
+    { "source": "/faq", "destination": "/faq/", "permanent": true },
+    { "source": "/en/faq", "destination": "/en/faq/", "permanent": true },
+    { "source": "/cuidados-tatuaje", "destination": "/cuidados-tatuaje/", "permanent": true },
+    { "source": "/en/tattoo-aftercare", "destination": "/en/tattoo-aftercare/", "permanent": true },
+    { "source": "/estudio-tatuajes-malaga", "destination": "/estudio-tatuajes-malaga/", "permanent": true },
+    { "source": "/en/tattoo-studio-malaga", "destination": "/en/tattoo-studio-malaga/", "permanent": true },
+    { "source": "/tatuajes-fine-line-malaga", "destination": "/tatuajes-fine-line-malaga/", "permanent": true },
+    { "source": "/en/fine-line-tattoos-malaga", "destination": "/en/fine-line-tattoos-malaga/", "permanent": true },
+    { "source": "/tatuajes-blackwork-malaga", "destination": "/tatuajes-blackwork-malaga/", "permanent": true },
+    { "source": "/en/blackwork-tattoos-malaga", "destination": "/en/blackwork-tattoos-malaga/", "permanent": true },
+    { "source": "/tatuajes-color-malaga", "destination": "/tatuajes-color-malaga/", "permanent": true },
+    { "source": "/en/color-tattoos-malaga", "destination": "/en/color-tattoos-malaga/", "permanent": true },
+    { "source": "/tatuajes-mascotas-malaga", "destination": "/tatuajes-mascotas-malaga/", "permanent": true },
+    { "source": "/en/pet-tattoos-malaga", "destination": "/en/pet-tattoos-malaga/", "permanent": true },
+    { "source": "/en/estudio-tatuajes-malaga", "destination": "/en/tattoo-studio-malaga/", "permanent": true },
+    { "source": "/en/estudio-tatuajes-malaga/", "destination": "/en/tattoo-studio-malaga/", "permanent": true }
+  ]
+}

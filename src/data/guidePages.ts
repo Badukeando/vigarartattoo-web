@@ -25,7 +25,7 @@ type GuideContent = {
 
 export const tattooAftercareGuide: Record<SiteLang, GuideContent> = {
   es: {
-    path: "/cuidados-tatuaje",
+    path: "/cuidados-tatuaje/",
     seo: {
       title: "Cuidados del Tatuaje | Guía de Curación en Málaga | Vigarartattoo",
       description:
@@ -85,13 +85,13 @@ export const tattooAftercareGuide: Record<SiteLang, GuideContent> = {
     ],
     relatedTitle: "Más páginas útiles",
     related: [
-      { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga" },
-      { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga" },
-      { label: "Portfolio completo", href: "/works" },
+      { label: "Estudio de tatuajes en Málaga", href: "/estudio-tatuajes-malaga/" },
+      { label: "Tatuajes fine line en Málaga", href: "/tatuajes-fine-line-malaga/" },
+      { label: "Portfolio completo", href: "/works/" },
     ],
   },
   en: {
-    path: "/en/tattoo-aftercare",
+    path: "/en/tattoo-aftercare/",
     seo: {
       title: "Tattoo Aftercare Guide | Healing Advice | Vigarartattoo",
       description:
@@ -151,9 +151,9 @@ export const tattooAftercareGuide: Record<SiteLang, GuideContent> = {
     ],
     relatedTitle: "More useful pages",
     related: [
-      { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga" },
-      { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga" },
-      { label: "Full portfolio", href: "/en/works" },
+      { label: "Tattoo studio in Malaga", href: "/en/tattoo-studio-malaga/" },
+      { label: "Fine line tattoos in Malaga", href: "/en/fine-line-tattoos-malaga/" },
+      { label: "Full portfolio", href: "/en/works/" },
     ],
   },
 };

@@ -50,8 +50,8 @@ const structuredData = [
           <a href={lang === "es" ? "/" : "/en/"} class="shrink-0 text-sm font-semibold tracking-wide text-glass">Vigarartattoo</a>
           <nav class="hidden min-w-0 flex-1 items-center justify-center gap-3 text-sm text-zinc-200 md:flex text-glass">
             <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href={lang === "es" ? "/" : "/en/"}>{lang === "es" ? "Inicio" : "Home"}</a>
-            <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href={lang === "es" ? "/works" : "/en/works"}>{lang === "es" ? "Trabajos" : "Works"}</a>
-            <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href={lang === "es" ? "/faq" : "/en/faq"}>FAQ</a>
+            <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href={lang === "es" ? "/works/" : "/en/works/"}>{lang === "es" ? "Trabajos" : "Works"}</a>
+            <a class="nav-pill hover:text-white border border-transparent rounded-full px-2 py-1" href={lang === "es" ? "/faq/" : "/en/faq/"}>FAQ</a>
           </nav>
           <div class="ml-auto flex shrink-0 items-center gap-2">
             <a data-lang-link="es" class={`${baseLangPill} ${!isEn ? activeLangPill : ""}`} href={alternatePaths.es} aria-current={!isEn ? "page" : undefined}>ES</a>
@@ -68,7 +68,7 @@ const structuredData = [
       <a href={lang === "es" ? "/" : "/en/"} class="text-lg font-semibold tracking-wide">Vigarartattoo</a>
       <nav class="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
         <a class="hover:text-white" href={lang === "es" ? "/" : "/en/"}>{lang === "es" ? "Inicio" : "Home"}</a>
-        <a class="hover:text-white" href={lang === "es" ? "/works" : "/en/works"}>{lang === "es" ? "Trabajos" : "Works"}</a>
+        <a class="hover:text-white" href={lang === "es" ? "/works/" : "/en/works/"}>{lang === "es" ? "Trabajos" : "Works"}</a>
       </nav>
       <a class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-zinc-950 hover:bg-zinc-200" href={whatsappLink} target="_blank" rel="noreferrer">
         {lang === "es" ? "Reservar" : "Book"}
